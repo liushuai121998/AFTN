@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		    <link rel="stylesheet" href="css/login.css" />
+<style>
+	.html, body
+	{
+		background: #ffffff !important;
+	}
+	.login_wrap
+	{
+		height: 470px;	
+		box-shadow:2px 2px 10px 4px #ccc;
+	}
+</style>
+	</head>
+	<body>
+		    <div class='login_wrap'>
+        <div class='login_title'>
+            修改密码
+        </div>
+        <div class='form_wrap'> 
+        	<!--
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-user"  ></span>
+                <input id="loginName" type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1">
+            </div>
+            -->
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-lock" ></span>
+                <input id="oldPassword" type='password'  class="form-control" placeholder="原密码" aria-describedby="basic-addon2" style="ime-mode:disabled">
+            </div>
+            
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-lock"  ></span>
+                <input id="newPassword" type='password'  class="form-control" placeholder="新密码" aria-describedby="basic-addon2" style="ime-mode:disabled">
+            </div>
+            
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-lock" ></span>
+                <input id="newPassword2" type='password'  class="form-control" placeholder="再次输入新密码" aria-describedby="basic-addon2" style="ime-mode:disabled">
+            </div>
+            
+            <div class="login_btn">
+                <button onclick="doEdit()" type="button" class='btn btn-primary'>确认修改</button>
+                
+            </div>
+          
+        </div>
+          <h4 id="msg_title" style="text-align: center;padding-top: 20px;color: red;"></h4>
+    </div>
+    
+    <script>
+    	
+    	function isnull(str)
+		{
+			console.log(str);
+			if(str==''||str.indexOf(' ')!=-1){
+			    return false;
+			}
+			return true;
+		}
+		
+				
+		function sixStr(str)
+		{ 
+			if(str.length>=6&&str.length<=16)
+			{
+				//通过 
+				return true;
+			} 
+			return false;
+		}
+		
+		
+    	function doEdit()
+    	{
+//  		if($("#loginName").val()=="")
+//  		{
+//  			$("#msg_title").html("请输入用户名");
+//  			return;
+//  		}
+    		if($("#oldPassword").val()=="")
+    		{
+    			$("#msg_title").html("请输入原密码");
+    			return;
+    		}
+    		
+    		
+    		if(isnull($("#newPassword").val())&&sixStr($("#newPassword").val()))	//&&isNaN($("#newPassword").val().substr(0,1))
+			{//&&sixStr(addUserObj["loginName"])&&!isNaN(addUserObj["loginName"].substr(0,1))
+				 console.log('密码通过认证');
+			}else
+			{
+				$("#msg_title").html("密码长度需要6-16字符"); 
+				return;
+			}		
+    		
+    		
+    		
+    		if($("#newPassword").val()=="")
+    		{
+    			$("#msg_title").html("请输入新密码");
+    			return;
+    		} 
+    		
+    		if($("#newPassword").val()!=$("#newPassword2").val())
+    		{
+    			$("#msg_title").html("两次密码输入不一致");
+    			return;
+    		}
+    	
+    		var loginStr = "";
+    		loginStr = '{"loginName":"'+TempCache.getItem("l_name")+'","newPassword":"'+$("#newPassword").val()+'","oldPassword":"'+$("#oldPassword").val()+'"}';
+    	   	console.log(loginStr);
+    	   	$("#msg_title").html("");
+    	   	getJson("sys/passwordupdate",sendBack,loginStr);
+    	}
+    	
+    	function sendBack(data)
+    	{
+    		console.log(data);
+    		if(data.c.flag=="1")
+    		{
+    			$("#msg_title").html("修改成功");
+    		}else
+    		{
+    			$("#msg_title").html("修改失败，请检查原密码是否正确。"); 
+    		}
+    	}
+    	
+    </script>
+	</body>
+</html>

@@ -1,0 +1,641 @@
+
+.plane_wrap {
+    height: 100%;
+    padding: 0 10px;
+}
+
+.plane_content .plane_list_wrap {
+	height: 100%;
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.plane_content .plane_list_wrap .list_header th, .plane_content .plane_list_wrap .list_content td {
+	text-align: center;
+}
+
+.list_content .table_content {
+	width: 100%;
+	box-sizing: border-box;
+}
+.list_content .table_content tbody {
+	width: 100%;
+	box-sizing: border-box;
+}
+/*table 样式*/
+ .plane_list_wrap .table th:first-child,
+ .plane_list_wrap .table td:first-child {
+    width: 4%;
+    /*position: relative;*/
+    /*z-index: 1000;*/
+}
+ .plane_list_wrap .table tr:nth-of-type(odd) td:first-child {
+	background: #F9F9F9;
+}
+ .plane_list_wrap .table th:nth-of-type(2),
+  .plane_list_wrap .table td:nth-of-type(2) {
+	width: 6%;
+}
+  .plane_list_wrap .table th:nth-of-type(3),
+  .plane_list_wrap .table td:nth-of-type(3) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(4),
+  .plane_list_wrap .table td:nth-of-type(4) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(5),
+  .plane_list_wrap .table td:nth-of-type(5) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(6),
+  .plane_list_wrap .table td:nth-of-type(6) {
+	width: 8%;
+}
+  .plane_list_wrap .table th:nth-of-type(7),
+  .plane_list_wrap .table td:nth-of-type(7) {
+	width: 8%;
+}
+  .plane_list_wrap .table th:nth-of-type(8),
+  .plane_list_wrap .table td:nth-of-type(8) {
+	width: 8%;
+}
+
+  .plane_list_wrap .table th:nth-of-type(9),
+  .plane_list_wrap .table td:nth-of-type(9) {
+	width: 8%;
+}
+  .plane_list_wrap .table th:nth-of-type(10),
+  .plane_list_wrap .table td:nth-of-type(10) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(11),
+  .plane_list_wrap .table td:nth-of-type(11) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(12),
+  .plane_list_wrap .table td:nth-of-type(12) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(13),
+  .plane_list_wrap .table td:nth-of-type(13) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(14),
+  .plane_list_wrap .table td:nth-of-type(14) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(15),
+  .plane_list_wrap .table td:nth-of-type(15) {
+	width: 5%;
+}
+  .plane_list_wrap .table th:nth-of-type(16),
+  .plane_list_wrap .table td:nth-of-type(16) {
+	width: 8%;
+}
+  .plane_list_wrap .table th:nth-of-type(17),
+  .plane_list_wrap .table td:nth-of-type(17) {
+	width: 5%;
+}
+
+
+
+
+@media only screen and (max-width: 1350px) {
+	
+	.plane_list_wrap .list_content{
+		width: 100%;
+		overflow: auto;
+	}
+	.plane_list_wrap .list_header {
+		width: 100%;
+		position: relative;
+	}
+	.plane_list_wrap .list_header .table thead tr>th:first-child{
+		background: #F9F9F9 ;
+		position: relative;
+		z-index: 1000;
+	}
+	.plane_list_wrap .list_content .table tr:nth-of-type(odd) td{
+		background: #F9F9F9;
+	}
+	.plane_list_wrap .list_content .table tr:nth-of-type(odd)>td:first-child {
+		background: #F9F9F9;
+		position: relative;
+		z-index: 1000;
+	}
+	.plane_list_wrap .list_content .table tr:nth-of-type(even) td{
+		background: #fff;
+	}
+	.plane_list_wrap .list_content .table tr:nth-of-type(even)>td:first-child {
+		position: relative;
+		z-index: 1000;
+		background: #fff;
+	}
+	.plane_list_wrap .table tr {
+		white-space: nowrap;
+	}
+	.plane_list_wrap .table th:first-child,
+	.plane_list_wrap .table td:first-child {
+	    width: 50px;
+	    position: relative;
+	}
+	 .plane_list_wrap .table th:nth-of-type(2),
+	  .plane_list_wrap .table td:nth-of-type(2) {
+		width: 100px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(3),
+	  .plane_list_wrap .table td:nth-of-type(3) {
+		width: 100px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(4),
+	  .plane_list_wrap .table td:nth-of-type(4) {
+		width: 70px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(5),
+	  .plane_list_wrap .table td:nth-of-type(5) {
+		width: 70px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(6),
+	  .plane_list_wrap .table td:nth-of-type(6) {
+		width: 100px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(7),
+	  .plane_list_wrap .table td:nth-of-type(7) {
+		width: 100px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(8),
+	  .plane_list_wrap .table td:nth-of-type(8) {
+		width: 100px;
+	}
+	
+	  .plane_list_wrap .table th:nth-of-type(9),
+	  .plane_list_wrap .table td:nth-of-type(9) {
+		width: 100px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(10),
+	  .plane_list_wrap .table td:nth-of-type(10) {
+		width: 100px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(11),
+	  .plane_list_wrap .table td:nth-of-type(11) {
+		width: 80px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(12),
+	  .plane_list_wrap .table td:nth-of-type(12) {
+		width: 70px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(13),
+	  .plane_list_wrap .table td:nth-of-type(13) {
+		width: 70px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(14),
+	  .plane_list_wrap .table td:nth-of-type(14) {
+		width: 70px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(15),
+	  .plane_list_wrap .table td:nth-of-type(15) {
+		width: 100px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(16),
+	  .plane_list_wrap .table td:nth-of-type(16) {
+		width: 100px;
+	}
+	  .plane_list_wrap .table th:nth-of-type(17),
+	  .plane_list_wrap .table td:nth-of-type(17) {
+		width: 100px;
+	}
+}
+
+/*计划plan*/
+.plan_list_wrap .table th:first-child,
+ .plan_list_wrap .table td:first-child {
+    width: 6%;
+    position: relative;
+    z-index: 1000;
+}
+ .plan_list_wrap .table tr:nth-of-type(odd) td:first-child {
+	background: #F9F9F9;
+}
+ .plan_list_wrap .table th:nth-of-type(2),
+  .plan_list_wrap .table td:nth-of-type(2) {
+	width: 10%;
+}
+  .plan_list_wrap .table th:nth-of-type(3),
+  .plan_list_wrap .table td:nth-of-type(3) {
+	width: 8%;
+}
+  .plan_list_wrap .table th:nth-of-type(4),
+  .plan_list_wrap .table td:nth-of-type(4) {
+	width: 7%;
+}
+  .plan_list_wrap .table th:nth-of-type(5),
+  .plan_list_wrap .table td:nth-of-type(5) {
+	width: 7%;
+}
+  .plan_list_wrap .table th:nth-of-type(6),
+  .plan_list_wrap .table td:nth-of-type(6) {
+	width: 10%;
+}
+  .plan_list_wrap .table th:nth-of-type(7),
+  .plan_list_wrap .table td:nth-of-type(7) {
+	width: 10%;
+}
+  .plan_list_wrap .table th:nth-of-type(8),
+  .plan_list_wrap .table td:nth-of-type(8) {
+	width: 6%;
+}
+
+  .plan_list_wrap .table th:nth-of-type(9),
+  .plan_list_wrap .table td:nth-of-type(9) {
+	width: 6%;
+}
+  .plan_list_wrap .table th:nth-of-type(10),
+  .plan_list_wrap .table td:nth-of-type(10) {
+	width: 6%;
+}
+  .plan_list_wrap .table th:nth-of-type(11),
+  .plan_list_wrap .table td:nth-of-type(11) {
+	width: 6%;
+}
+  .plan_list_wrap .table th:nth-of-type(12),
+  .plan_list_wrap .table td:nth-of-type(12) {
+	width: 10%;
+}
+  .plan_list_wrap .table th:nth-of-type(13),
+  .plan_list_wrap .table td:nth-of-type(13) {
+	width: 8%;
+}
+@media only screen and (max-width: 1000px) {
+	.plan_list_wrap .list_content{
+		width: 100%;
+		overflow: auto;
+	}
+	.plan_list_wrap .list_header {
+		width: 100%;
+		position: relative;
+	}
+	.plan_list_wrap .list_header .table thead tr>th:first-child{
+		background: #F9F9F9 !important;
+		position: relative;
+		z-index: 1000;
+	}
+	.plan_list_wrap .list_content .table tr:nth-of-type(odd) td{
+		background: #F9F9F9;
+	}
+	.plan_list_wrap .list_content .table tr:nth-of-type(odd)>td:first-child {
+		background: #F9F9F9;
+	}
+	.plan_list_wrap .list_content .table tr:nth-of-type(even) td{
+		background: #fff;
+	}
+	.plan_list_wrap .list_content .table tr:nth-of-type(even)>td:first-child {
+		position: relative;
+		z-index: 1000;
+		background: #fff;
+	}
+	.plan_list_wrap .table tr {
+		white-space: nowrap;
+	}
+	.plan_list_wrap .table th:first-child,
+	.plan_list_wrap .table td:first-child {
+	    width: 50px;
+	    position: relative;
+	}
+	 .plan_list_wrap .table th:nth-of-type(2),
+	  .plan_list_wrap .table td:nth-of-type(2) {
+		width: 100px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(3),
+	  .plan_list_wrap .table td:nth-of-type(3) {
+		width: 100px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(4),
+	  .plan_list_wrap .table td:nth-of-type(4) {
+		width: 70px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(5),
+	  .plane_list_wrap .table td:nth-of-type(5) {
+		width: 70px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(6),
+	  .plan_list_wrap .table td:nth-of-type(6) {
+		width: 100px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(7),
+	  .plan_list_wrap .table td:nth-of-type(7) {
+		width: 100px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(8),
+	  .plan_list_wrap .table td:nth-of-type(8) {
+		width: 100px;
+	}
+	
+	  .plan_list_wrap .table th:nth-of-type(9),
+	  .plan_list_wrap .table td:nth-of-type(9) {
+		width: 100px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(10),
+	  .plan_list_wrap .table td:nth-of-type(10) {
+		width: 100px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(11),
+	  .plan_list_wrap .table td:nth-of-type(11) {
+		width: 80px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(12),
+	  .plan_list_wrap .table td:nth-of-type(12) {
+		width: 70px;
+	}
+	  .plan_list_wrap .table th:nth-of-type(13),
+	  .plan_list_wrap .table td:nth-of-type(13) {
+		width: 70px;
+	}
+}
+  /*.plane_list_wrap .table th:nth-of-type(18),
+  .plane_list_wrap .table td:nth-of-type(18) {
+	width: 6%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}*/
+
+/*#detailShow .table tr:nth-of-type(odd) td:first-child {
+	background: #fff;
+}*/
+/*#detailShow .table tr:nth-of-type(even) {
+	background: #bfa;
+}
+#detailShow .table tr:nth-of-type(even) td:first-child  {
+	background: #bfa;
+}*/
+.common_table>div:first-child::after {
+	border-left: none;
+}
+
+#detailShow .modal-content {
+	width: 70%;
+}
+
+#detailShow .modal-content .list_header {
+	/*width: calc(100% - 17px);*/
+	width: 100%;
+	position: relative;
+}
+/*#detailShow .modal-content .list_header:after {
+	content: '';
+	display: block;
+	position: absolute;
+	right: -17px;
+	top: 0px;
+	width: 18px;
+	height: 40px;
+	background: #F9F9F9;
+	border-bottom: 1px solid #ddd;
+	box-sizing: border-box;
+	z-index: 100;
+}*/
+#detailShow .list_content{
+	position: relative;
+	max-height: 450px;
+	overflow: auto;
+}
+
+#detailShow .list_content .table_content:focus {
+	border: none;
+}
+
+#detailShow .modal-body {
+	padding: 0;
+	padding-bottom: 0;
+	max-width: 100%;
+	overflow: hidden;
+}
+#detailShow .modal-footer .total_num {
+	float: left;
+}
+#detailShow .modal-title {
+	float: left;
+}
+#detailShow .table {
+	width: 100%;
+	table-layout:fixed;
+	border-left: none;
+	border-right: none;
+}
+#detailShow .table thead tr th{
+	border: none;
+	text-align: center;
+}
+#detailShow .list_header .table thead th {
+	/*height: 39px;*/
+}
+#detailShow .table tbody tr td, #detailShow .list_header .table thead th {
+	border: none;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+#detailShow .table tbody {
+	display: block;
+	font-size: 0;
+}
+#detailShow .table tbody tr {
+	width: 100%;
+	box-sizing: border-box;
+	display: inline-block;
+	/*font-size: 16px;*/
+	/*font-size: 12px;*/
+	font-size: 15px;
+}
+
+
+
+#detailShow .table tbody tr:hover td{
+	background: #DFF0D8 !important;
+}
+
+#detailShow .table .msg_detail_content .msg_detail_content_item{
+	background: #EFFEF9;
+	text-align: left;
+}
+
+#detailShow .modal-dialog .modal-footer {
+	border-top: none;
+}
+#detailShow .modal-dialog .table > tbody > tr.table_active td{
+	background: #BAE0F3 !important;
+}
+
+
+/*table 样式*/
+ #detailShow .table th:first-child,
+ #detailShow .table td:first-child {
+    width: 4%;
+}
+
+ #detailShow .table th:nth-of-type(2),
+ #detailShow .table td:nth-of-type(2) {
+	width: 8%;
+}
+ #detailShow .table th:nth-of-type(3),
+ #detailShow .table td:nth-of-type(3) {
+	width: 8%;
+}
+ #detailShow .table th:nth-of-type(4),
+ #detailShow .table td:nth-of-type(4) {
+	width: 20%;
+}
+ #detailShow .table th:nth-of-type(5),
+ #detailShow .table td:nth-of-type(5) {
+	width: 12%;
+}
+ #detailShow .table th:nth-of-type(6),
+ #detailShow .table td:nth-of-type(6) {
+	width: 12%;
+}
+ #detailShow .table th:nth-of-type(7),
+  #detailShow .table td:nth-of-type(7) {
+	width: 12%;
+}
+  #detailShow .table th:nth-of-type(8),
+  #detailShow .table td:nth-of-type(8) {
+	width: 12%;
+}
+
+ #detailShow .table th:nth-of-type(9),
+ #detailShow .table td:nth-of-type(9) {
+	width: 12%;
+}
+
+@media only screen and (max-width: 1350px) {
+	#detailShow .list_content {
+		overflow: auto;
+	}
+	#detailShow .modal-content .table tr {
+		white-space: nowrap;
+	}
+	
+	#detailShow .modal-content .table thead tr th {
+		background: #F9F9F9;
+	}
+	#detailShow .list_content .table tr:nth-of-type(odd) td{
+		background: #F9F9F9;
+	}
+	#detailShow .list_content .table tr:nth-of-type(odd)>td:first-child {
+		background: #F9F9F9;
+	}
+	#detailShow .list_content .table tr:nth-of-type(even) td{
+		background: #fff;
+	}
+	#detailShow .list_content .table tr:nth-of-type(even)>td:first-child {
+		background: #fff;
+	}
+	
+	#detailShow .list_content .table tr.msg_detail_content td:first-child{
+		background: #EFFEF9 !important;
+	}
+	
+	/*table 样式*/
+ #detailShow .table th:first-child,
+ #detailShow .table td:first-child {
+    min-width: 50px;
+    position: relative;
+    z-index: 1000;
+}
+
+
+ #detailShow .table th:nth-of-type(2),
+ #detailShow .table td:nth-of-type(2) {
+	width: 80px;
+}
+ #detailShow .table th:nth-of-type(3),
+ #detailShow .table td:nth-of-type(3) {
+	width: 80px;
+}
+ #detailShow .table th:nth-of-type(4),
+ #detailShow .table td:nth-of-type(4) {
+	width: 200px;
+}
+ #detailShow .table th:nth-of-type(5),
+ #detailShow .table td:nth-of-type(5) {
+	width: 120px;
+}
+ #detailShow .table th:nth-of-type(6),
+ #detailShow .table td:nth-of-type(6) {
+	width: 120px;
+}
+ #detailShow .table th:nth-of-type(7),
+  #detailShow .table td:nth-of-type(7) {
+	width: 120px;
+}
+  #detailShow .table th:nth-of-type(8),
+  #detailShow .table td:nth-of-type(8) {
+	width: 120px;
+}
+
+ #detailShow .table th:nth-of-type(9),
+ #detailShow .table td:nth-of-type(9) {
+	width: 120px;
+}
+}
+
+.plane_list_wrap .list_header .table {
+	border-top: 1px solid #ddd;
+	/*border-left: 1px solid #ddd;*/
+}
+
+
+/* 排序*/
+.list_header th {
+	position: relative;
+}
+.sort_plane {
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/*时间选择的滑动控件*/
+.nstSlider {
+    position: relative;
+    width: 120px;
+    height: 1px;
+    background: #134;
+}
+.nstSlider .rightGrip, .nstSlider .leftGrip {
+	position: absolute;
+	left: 0;
+	top: 0;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    background: #41BE5F;
+    transform: translate(-50%, -50%);
+}
+.nstSlider .bar {
+	width: 0;
+	border-radius: 5px;
+    position: absolute;
+    background: rgba(199, 235, 207, .9);
+    height: 10px;
+    left: 0;
+    top: 0;
+    transform: translateY(-50%);
+}
+.leftLabel {
+	position: absolute;
+	left: 0;
+	top: 0;
+	transform: translate(-50%, -50%);
+}
+.rightLabel {
+	position: absolute;
+	right: -65%;
+	top: 0;
+	transform: translateY(-50%);
+}
+
+

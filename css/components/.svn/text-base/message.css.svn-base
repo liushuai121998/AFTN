@@ -1,0 +1,239 @@
+.message_wrap {
+	width: 100%;
+	height: 100%;
+	padding: 0 10px;
+}
+
+.table th , .table td {
+	text-align: center;
+}
+/*table 样式*/
+ .table th:first-child,
+ .table td:first-child {
+    width: 5%;
+    position: relative;
+    /*background: #fff;*/
+}
+ .table tr:nth-of-type(odd) td:first-child {
+	background: #F9F9F9;
+}
+ .table th:nth-of-type(2),
+ .table td:nth-of-type(2) {
+	width: 8%;
+}
+ .table th:nth-of-type(3),
+ .table td:nth-of-type(3) {
+	width: 7%;
+}
+ .table th:nth-of-type(4),
+ .table td:nth-of-type(4) {
+	width: 19%;
+}
+ .table th:nth-of-type(5),
+ .table td:nth-of-type(5) {
+	width: 9%;
+}
+ .table th:nth-of-type(6),
+ .table td:nth-of-type(6) {
+	width: 11%;
+}
+ .table th:nth-of-type(7),
+ .table td:nth-of-type(7) {
+	width: 11%;
+}
+ .table th:nth-of-type(8),
+ .table td:nth-of-type(8) {
+	width: 11%;
+}
+
+ .table th:nth-of-type(9),
+ .table td:nth-of-type(9) {
+	width: 11%;
+}
+ .table th:nth-of-type(10),
+ .table td:nth-of-type(10) {
+	width: 8%;
+}
+
+@media only screen and (max-width: 1350px) {
+	.message_wrap .list_content {
+		overflow: auto;
+	}
+	.message_wrap .table tr {
+		white-space: nowrap;
+	}
+	.message_wrap .list_header .table thead tr>th:first-child{
+		background: #F9F9F9 !important;
+		position: relative;
+		z-index: 1000;
+	}
+	.message_wrap .list_content .table tr:nth-of-type(odd) td{
+		background: #F9F9F9;
+	}
+	.message_wrap .list_content .table tr:nth-of-type(odd)>td:first-child {
+		background: #F9F9F9;
+	}
+	.message_wrap .list_content .table tr:nth-of-type(even) td{
+		background: #fff;
+	}
+	.message_wrap .list_content .table tr:nth-of-type(even)>td:first-child {
+		position: relative;
+		z-index: 1000;
+		background: #fff;
+	}
+	 .table th:first-child,
+ .table td:first-child {
+    width: 50px;
+    position: relative;
+    /*background: #fff;*/
+}
+ .table tr:nth-of-type(odd) td:first-child {
+	background: #F9F9F9;
+}
+ .table th:nth-of-type(2),
+ .table td:nth-of-type(2) {
+	width: 80px;
+}
+ .table th:nth-of-type(3),
+ .table td:nth-of-type(3) {
+	width: 80px;
+}
+ .table th:nth-of-type(4),
+ .table td:nth-of-type(4) {
+	width: 200px;
+}
+ .table th:nth-of-type(5),
+ .table td:nth-of-type(5) {
+	width: 200px;
+}
+ .table th:nth-of-type(6),
+ .table td:nth-of-type(6) {
+	width: 120px;
+}
+ .table th:nth-of-type(7),
+ .table td:nth-of-type(7) {
+	width: 120px;
+}
+ .table th:nth-of-type(8),
+ .table td:nth-of-type(8) {
+	width: 120px;
+}
+
+ .table th:nth-of-type(9),
+ .table td:nth-of-type(9) {
+	width: 120px;
+}
+ .table th:nth-of-type(10),
+ .table td:nth-of-type(10) {
+	width: 80px;
+}
+}
+/*.message_wrap .table th:nth-of-type(11),
+.message_wrap .table td:nth-of-type(11) {
+	width: 100px;
+}*/
+.message_content .message_list_wrap {
+	height: 100%;
+	width: 70%;
+	float: left;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	position: relative;
+}
+.message_content .message_detail {
+	width: 30%;
+	height: 100%;
+	float: right;
+	/*border: 1px solid #ddd;*/
+	box-sizing: border-box;
+}
+/*.message_content .message_list_wrap .list_content {
+	height: calc(100% - 88px)
+}*/
+.select_show label {
+	display: inline-block;
+	width: 100%;
+}
+
+/*报文信息列表*/
+.message_type_list li{
+	padding: 5px 20px;
+	border-bottom: 1px solid #ddd;
+	box-sizing: border-box;
+}
+
+.selected_type {
+	float: right;
+}
+
+.selected_active {
+	background: #DEF0E5;
+}
+
+
+.detail_content .article_item {
+	padding: 5px;
+}
+
+
+/*时间选择的滑动控件*/
+.nstSlider {
+    position: relative;
+    width: 120px;
+    height: 1px;
+    background: #134;
+}
+.nstSlider .rightGrip, .nstSlider .leftGrip {
+	position: absolute;
+	left: 0;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    background: #41BE5F;
+    transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+}
+.nstSlider .bar {
+	width: 0;
+	border-radius: 5px;
+    position: absolute;
+    background: rgba(199, 235, 207, .9);
+    height: 10px;
+    left: 0;
+    top: 0;
+    transform: translate(0%, -50%);
+}
+.leftLabel {
+	position: absolute;
+	left: 0;
+	top: 0;
+	transform: translate(-50%, -50%);
+}
+.rightLabel {
+	position: absolute;
+	right: -65%;
+	top: 0;
+	transform: translateY(-50%);
+}
+
+
+.message_wrap .message_content .table_content {
+	border-right: 1px solid #ddd;
+}
+
+.message_wrap .list_header th:last-child {
+	border-right: 1px solid #ddd !important;
+}
+
+
+/*高级查询中的报文状态*/
+.message_status {
+	width: 100%;
+	float: left;
+	margin-bottom: 1em;
+}
+.message_status .message_status_sel {
+	width: 110px;
+	display: inline-block;
+	margin-left: 1em;
+}

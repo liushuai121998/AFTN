@@ -1,0 +1,77 @@
+var serviceUrl = 'http://192.168.1.198:8081/aftn_server/';
+//var serviceUrl = ''
+/**
+ * getPage 获取页面
+ * @param {*} url 
+ * @param {*} callback 
+ * @param {*} jsonStr 
+ */
+function getPage(url, callback, jsonStr) {
+//  showLoading()
+    $.ajax({
+        url: url,
+        type: 'post',
+        data: jsonStr,
+        contentType: "application/json",
+        success: function(data) {
+            callback(data)
+        },
+        error: function() {
+            hideLoading()
+            console.error('请求失败')
+        }
+    })
+}
+/**
+ * 显示loading框
+ */
+function showLoading() {
+    $('#myModal-loading').modal('show')
+}
+/**
+ * 隐藏loading框
+ */
+function hideLoading() {
+    $('#myModal-loading').modal('hide')
+}
+/**
+ * showMsg
+ * @param {*} content 
+ */
+function showMsg(content) {
+	
+    $('#myModal-msg').modal('show')
+        // 显示的内容
+    $('#myModalLabel').html(content)
+    
+    $('#myModal-msg .btn').click(function () {
+    	$('#myModal-msg').modal('hide')
+    })
+}
+
+    /**
+     * 发送ajax请求获取数据
+     * @param {*} url 
+     * @param {*} callback 
+     * @param {*} param 
+     */
+function getJson(url, callback, param) {  
+	if(param instanceof Object)
+	{
+		param = JSON.stringify(param);
+	} 
+	
+//	showLoading()
+    $.ajax({
+        url: serviceUrl + url,
+        data: param.toString(),
+        type: "post",
+        success: function(dataJson) {
+            callback(dataJson);
+        },
+        error: function() {
+        	console.log('error')
+            hideLoading();
+        }
+    });
+}

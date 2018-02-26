@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title> 
+
+		    <link rel="stylesheet" href="./asset/lib/bootstraptable/css/bootstrap-table.min.css">
+		    
+			<script src="./asset/lib/bootstraptable/js/bootstrap-table.js"></script> 
+			<style>
+				/***
+				.table-striped > tbody > tr:nth-of-type(odd)
+				{
+					background-color:#F9F9F9;
+				}
+				**/
+				.fixed-table-container tbody .selected td {
+					background-color: #ccffcc;
+				}
+/*	/*	/*	/*	/*
+		 		 .modal-backdrop
+		 		 {
+		 		 	z-index: 10;
+		 		 }*/
+		 		
+		 		 
+			</style>
+	</head>
+	 
+
+
+<body>
+	
+ <div class="panel-body">
+ 	
+ 	<!--
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group" style="margin-top:15px">
+                        <label class="control-label col-sm-1" for="txt_search_departmentname">部门名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_departmentname">
+                        </div>
+                        <label class="control-label col-sm-1" for="txt_search_statu">状态</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_statu">
+                        </div>
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>      
+-->
+
+        <div id="toolbar" class="btn-group"  >
+           <div class="btn-group">
+			  <select id="ds_deptId" class="form-control">
+                    <option value="user">用户日志</option>  
+                    <!--
+					<option value="system">系统日志</option>  
+					-->
+              </select>
+			</div>
+			
+			 <div class="ta_date" id="div_date_demo3">
+                <div style='float: left;'><input style="width: 180px;" class="form-control" id="dateStart" type="text" placeholder="开始日期"  readonly></div>
+                <div style='float: right'><input style="width: 180px;" class="form-control" id="dateEnd" type="text" placeholder="结束日期"  readonly></div>
+              </div>
+              
+			<div class="search_form_group clearfix" id="search_input"> 
+                <input id="s_input" type="text" class="form-control search_input" placeholder="输入筛选内容"> 
+              <div class="delete_val"><i class="panel-icon" style="font-size: 20px;"></i></div>
+			</div>
+			
+           <div id="system_select" class="btn-group" style="padding-left:30px;display: none;">
+			  <select id="ds_logtype" class="form-control">
+                    <option value="">全部</option>    
+					<option value="INFO">INFO</option>  
+					<option value="ERROR">ERROR</option>  
+					<option value="DEBUG">DEBUG</option>
+              </select>
+			</div>
+			 
+			<button type="button" class="btn btn-success"   style="margin-left:30px;" onclick="doSearch()">查询</button> 
+						<button type="button" class="btn"   style="margin-left:30px;" onclick="doRest()">重置</button> 
+
+			<div></div> 
+
+        </div>
+        
+       
+        
+        
+        <table id="tb_departments"  class="table mytable-S web-font"></table>
+    </div>
+ 
+
+	<script> 
+
+var start = {
+    format: 'YYYY-MM-DD hh:mm:ss',
+    minDate: '1888-06-16 23:59:59', //设定最小日期为当前日期
+//  isinitVal:true,
+    //festival:true,
+    ishmsVal:false,
+    maxDate: $.nowDate({DD:0}), //最大日期
+    choosefun: function(elem, val, date){
+        end.minDate = date; //开始日选好后，重置结束日的最小日期
+        endDates();
+    }
+};
+var end = {
+    format: 'YYYY-MM-DD hh:mm:ss',
+    minDate: $.nowDate({DD:0}), //设定最小日期为当前日期
+    //festival:true,
+    maxDate: '2099-06-16 23: 59: 59', //最大日期
+    choosefun: function(elem, val, date){
+        start.maxDate = date; //将结束日的初始值设定为开始日的最大日期
+    }
+};
+//这里是日期联动的关键        
+function endDates() {
+    //将结束日期的事件改成 false 即可
+    end.trigger = false;
+    $("#dateEnd").jeDate(end);
+}
+$('#dateStart').jeDate(start);
+$('#dateEnd').jeDate(end);
+ 
+ 
+ 
+ var sendType = "userloglist";
+$(function () { 
+	
+	//延迟50毫秒执行，因为太快会发生高度计算不精准
+	setTimeout(function () {
+   initDT();
+   //setDateTable();
+   
+   //var str = '{"parameter":"","startTime":"2017-01-01 10:10:00","endTime":"2018-10-01 10:10:00","pageSize":"10", "pageIndex":"1"}';
+    
+   //getJson("sys/userloglist",sendBack,str);
+  }, 50);	
+});
+
+
+		function sendBack(data)
+ 		{
+ 			if(sendType == "userloglist")
+ 			{
+ 				console.log(data);
+ 			}
+ 		}
+ 
+//监听回调，主页面派发的事件
+//document.addEventListener('pageReback', function(e){  
+//// e.target matches the elem from above  
+// // $("#tb_departments").bootstrapTable('destroy'); 
+////$("#tb_departments").bootstrapTable('refresh');
+//initDT();
+//	setDateTable();
+//console.log('dddd');
+//}, true);
+
+
+	function doRest()
+	{
+		//initDT();
+		 // $('#ds_deptId').options.length = 0;
+		  //$('#ds_deptId').value = "用户日志";
+		  console.log('reset'); 
+		  
+		  
+		  $("#div_date_demo3").show();
+                	$("#search_input").show();               	
+                	$("#system_select").hide();
+                	
+                	
+                	$("#dateStart").val('');
+                	$("#dateEnd").val('');
+                	$("#s_input").val('');
+
+                	
+                	      
+		  
+			//document.getElementById("ds_deptId").options.selectedIndex = 0; //回到初始状态
+			document.getElementById("ds_deptId").options[document.getElementById("ds_deptId").selectedIndex].removeAttribute("selected");
+document.getElementById("ds_deptId").options.selectedIndex = 0;
+				initDT();
+		  //$("#ds_deptId").attr("用户日志",'user');
+		   
+	}
+ 
+ 	function doSearch()
+ 	{
+ 		initDT();
+ 	}
+	//选择系统日志还是个人日志
+    $('#ds_deptId').change(function(e){
+    	 
+                if($(":selected","#ds_deptId").attr("value")=="user")
+                {
+                	$("#div_date_demo3").show();
+                	$("#search_input").show();               	
+                	$("#system_select").hide();
+                	
+                }else
+                {
+                	$("#search_input").hide();      
+                	$("#div_date_demo3").hide();
+                	$("#system_select").show();
+                }
+                
+                
+                
+                //initDT();
+	 })
+    
+//  $('#ds_logtype').change(function(e){
+//              //console.log($(":selected","#dept-select").attr("value"));
+//              //initDT();
+//	 })
+//   
+       
+       var nowpageSize,nowpageNumber;
+       function queryParams(params) {
+       	console.log($("#dateEnd").val());
+       	
+       	nowpageSize = params.pageSize;
+       	nowpageNumber = params.pageNumber
+       	//$(":selected","#ds_deptId").attr("value")
+       	 if($(":selected","#ds_deptId").attr("value")=="user")//用户日志
+       	 {
+       	 	    return '{"parameter":"'+$("#s_input").val()+'","startTime":"'+$("#dateStart").val()+'","endTime":"'+$("#dateEnd").val()+'","pageSize":"'+params.pageSize+'", "pageIndex":"'+params.pageNumber+'"}';
+       	 }else
+       	 {
+       	 	return '{"type":"'+$(":selected","#ds_logtype").attr("value")+'","pageSize":"'+params.pageSize+'", "pageIndex":"'+params.pageNumber+'"}';
+       	 }
+//return {
+//	loginName:"xj",
+//	startTime:"2017-01-01 10:10:00",
+//	endTime:"2018-10-01 10:10:00",
+//	pageSize:params.pageSize,
+//	pageIndex:params.pageNumber
+////limit : params.limit,//每页记录数
+////offset : params.offset,//从第几条记录开始
+////order: params.order,//排序
+////ordername: params.sort, 
+//};
+}
+       
+//'{"loginName":"xj","startTime":"2017-01-01 10:10:00","endTime":"2018-10-01 10:10:00","pageSize":"10", "pageIndex":"1"}',//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
+
+function initDT()
+{	 
+	   //url: serviceUrl+'/sys/userloglist',         //请求后台的URL（*）
+            //method: 'post',                      //请求方式（*）
+     var tableUrl = "";
+     if($(":selected","#ds_deptId").attr("value")=="user")//用户日志
+     {
+     	tableUrl = serviceUrl+'sys/userloglist';  
+     	
+     	tableCol = [{
+     		 align: 'center' ,
+                field: 'Number',
+                title: '序号',
+                formatter: function (value, row, index) {
+                return  nowpageNumber * nowpageSize + index+1 - nowpageSize;
+            	}
+   			}, {
+                    field: 'loginName',
+                    title: '登陆名',
+                    align: 'center'
+                }, 
+                 {
+                    field: 'workNum',
+                    title: '工号',
+                    align: 'center',
+                     width : '200'
+                },                
+                {
+                    field: 'operateTime',
+                    title: '操作时间',
+                    align: 'center',
+                     width : '200'
+                },{
+                    field: 'operate',
+                    title: '操作内容',
+                    align: 'center',
+                     
+                }];
+     	//console.log('用户日志');
+     }else//系统日志
+     {
+     	tableUrl = serviceUrl+'sys/sysloglist';
+     	tableCol = [{
+     		 align: 'center' ,
+                field: 'Number',
+                title: '序号',
+                formatter: function (value, row, index) {
+                return  nowpageNumber * nowpageSize + index+1 - nowpageSize;
+            	}
+   			}, {
+                    field: 'type',
+                    title: '日志级别',
+                    align: 'center'
+                },{
+                    field: 'time',
+                    title: '日志时间',
+                    align: 'center' ,
+                    width : '200'
+                    
+                }, {
+                    field: 'content',
+                    title: '日志内容',
+                    align: 'left',
+                     
+                }];
+     	//console.log('系统日志');
+     }
+     
+     
+	 var T_height = $(window).height()-90;  
+	           //  height: T_height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+$("#tb_departments").bootstrapTable('destroy'); 
+	   $('#tb_departments').bootstrapTable({
+	   	search:false,
+	   	dataType: "json",  
+	   	        height: T_height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                method: 'post',
+                toolbar: '#toolbar',    //工具按钮用哪个容器
+                striped: true,      //是否显示行间隔色
+                cache: false,      //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,     //是否显示分页（*）
+                sortable: false,      //是否启用排序
+                sortOrder: "asc",     //排序方式
+                pageNumber:1,      //初始化加载第一页，默认第一页
+                pageSize: 25,      //每页的记录行数（*）
+                pageList: [ 25, 50, 100],  //可供选择的每页的行数（*）
+                url:  tableUrl,//这个接口需要处理bootstrap table传递的固定参数
+                //queryParamsType:'' , //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                 queryParamsType:'',
+                                    // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
+                 queryParams: queryParams,//'{"loginName":"xj","startTime":"2017-01-01 10:10:00","endTime":"2018-10-01 10:10:00","pageSize":"10", "pageIndex":"1"}',//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
+                sidePagination: "server",   //分页方式：client客户端分页，server服务端分页（*）
+                //search: true,      //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                //showColumns: true,     //是否显示所有的列
+                //showRefresh: true,     //是否显示刷新按钮
+                minimumCountColumns: 2,    //最少允许的列数
+                clickToSelect: true,    //是否启用点击选中行
+                searchOnEnterKey: true,
+                //          onLoadSuccess: function(data){  //加载成功时执行
+//          	console.log(data);  
+//            console.log("加载成功");  
+//          }, 
+   responseHandler: function(res){  //加载成功时执行
+            	console.log(res);  
+            	if(res.c.flag==0)
+            	{
+            		return res;
+            	}
+            	var obj = new Array();
+          	obj["total"] = res.c.page.totalNum;
+          	obj["rows"] = res.c.logs;
+            	 //{“total”:0,”rows”:[]} 
+            	 //console.log(res);
+             // console.log("加载成功");  
+              return obj;
+            },  
+                columns: tableCol,
+                pagination:true
+            });
+	 //$("#tb_departments").bootstrapTable('destroy'); 
+//
+//	 $('#tb_departments').bootstrapTable({
+//	 	queryParamsType: "",
+//          url: serviceUrl+'/sys/userloglist',         //请求后台的URL（*）
+//          method: 'post',                      //请求方式（*）
+//          toolbar: '#toolbar',                //工具按钮用哪个容器
+//          striped: false,                      //是否显示行间隔色
+//          cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+//          pagination: true,                   //是否显示分页（*）
+//          sortable: false,                     //是否启用排序
+//          sortOrder: "asc",                   //排序方式
+//          //queryParams: oTableInit.queryParams,//传递参数（*）
+//          sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+//          pageNumber:1,                       //初始化加载第一页，默认第一页
+//          pageSize: 25,                       //每页的记录行数（*）
+//          pageList: [25, 50, 100],        //可供选择的每页的行数（*）
+//          search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+//          strictSearch: true,
+//          showColumns: false,                  //是否显示所有的列
+//          showRefresh: false,                  //是否显示刷新按钮
+//          minimumCountColumns: 2,             //最少允许的列数
+//          clickToSelect: false,                //是否启用点击选中行
+//          height: T_height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+//          //uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+//          showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+//          cardView: false,                    //是否显示详细视图
+//          detailView: false,                   //是否显示父子表
+//          columns: [{
+//              field: 'loginName',
+//              title: '登陆名'
+//          }, {
+//              field: 'operateTime',
+//              title: '操作时间'
+//          }, {
+//              field: 'operate',
+//              title: '操作内容' 
+//          }  
+//          ], queryParams: '{"loginName":"xj","startTime":"2017-01-01 10:10:00","endTime":"2018-10-01 10:10:00","pageSize":"10", "pageIndex":"1"}' ,                
+//           
+//          onLoadSuccess: function(data){  //加载成功时执行
+//          	console.log(data);  
+//            console.log("加载成功");  
+//          },  
+//          onLoadError: function(){  //加载失败时执行  
+//             console.log("加载数据失败", {time : 1500, icon : 2});  
+//          }  
+//      });
+}
+
+//{"loginName":"xj","startTime":"2017-01-01 10:10:00","endTime":"2018-10-01 10:10:00","pageSize":"10", "pageIndex":"1"}
+
+var ButtonInit = function () {
+    var oInit = new Object();
+    var postdata = {};
+
+    oInit.Init = function () {
+        //初始化页面上面的按钮事件
+    };
+
+    return oInit;
+};
+ 
+ //'<button type="button" data="E_'+row.id+'" class="edit_btn btn btn-default  btn-sm" style="margin-right:15px;">编辑</button>',
+ //               '<button type="button" data="D_'+row.id+'" class="delete_btn btn btn-default  btn-sm" style="margin-right:15px;">删除</button>' 
+
+
+// 
+//      function operateEvents(e,value, row, index)
+//      {
+//      	console.log(e); 
+//      } 
+        
+        
+        
+        $("#btn_add").click(function(e){
+        	save_state = "useradd";
+			$('#myModal-user-title').text("新增用户"); 
+			$("#myModal-user").modal({backdrop:false});
+		});
+		
+		 
+        
+         
+		var arrayUserList  = new Array();;
+		function setDateTable(data)
+		{    
+			arrayUserList = data.c.users;
+ 			$("#tb_departments").bootstrapTable('load',arrayUserList);
+		}
+		
+		 
+ 
+		
+		
+			//设置框架高度
+	function setpageheight()
+	{ 
+		var mainheight = $(window).height()-150;
+		//console.log($(window).height());
+		//$("#maindiv").height(mainheight);
+		$("#mytable").height(mainheight); 
+
+		 
+	}
+	</script>
+</body>
+</html>

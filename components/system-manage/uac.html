@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>		
+		
+    <link rel="stylesheet" type="text/css" href="./asset/lib/jq-radio-check/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./asset/lib/jq-radio-check/build.css">
+ 
+		<style>
+			.main{float:left;border:1px;width:100%;height: 100%;background-color: #F5F5F5;}
+			.left{float:left;border:0px solid #1A4D8B;width:25%; height: 100%;background-color: #ffffff;}
+			.right{float:right;border:0px solid #1A4D8B;width:73%;height: 100%;background-color: #ffffff;}
+			.mylist{padding-bottom: 50px !important;height: 100%;border: none;}
+			.mylist li{border-left: none;border-right: none;}
+			.mylistLiAc span{color:red} 
+			
+			.mylist li input{border: none;width: 80%;}
+			
+			.form-group{border-bottom:1px solid #1A4D8B;width: 100%;padding: 5px;}
+			.form-horizontal{margin: 150px;}
+				.btn-primary  
+	{
+		color: #fff !important;
+	}
+	.btn-danger
+	{
+		color: #fff !important;
+	}
+/*input {border:1px solid #ffffff;backgroundColor: transparent;} */
+/*input {star : expression( 
+onmouseover=function(){this.style.borderColor="#000000"}, 
+onmouseout=function(){
+	this.style.borderColor="#ffffff",this.style.background-color="transparent";
+	
+})} */
+		</style>		 
+	</head>  
+	<body> 
+		 <div class="main">
+		 	    <div class="left web-font" style=""> 
+		 	    	<li class="list-group-item active">角色设置
+	                    <div style="float: right;" id="rl_btn_group">
+	                    	<span id="btn_add" class="add_btn glyphicon glyphicon-plus" aria-hidden="true" style="padding-right: 15px;"></span>
+	                    	<!--
+	                    	<span id="btn_delete" class="edit_btn glyphicon glyphicon-pencil" aria-hidden="true"  style="padding-right: 15px;"></span>
+-->
+							<span id="btn_delete" class=" glyphicon glyphicon-trash" aria-hidden="true"></span>
+	                    </div>
+                  </li> 
+			 	    <ul class="list-group mylist" id="mylistgroup"  style="width:100%;height:calc(100% - 30px);   overflow:auto;">	
+			 	    </ul>
+			 	     
+			 	    <!--
+					  <li class="list-group-item"><span data="D_undefined" class="delete_btn glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 15px;"></span>角色1</li>
+					  <li class="list-group-item"><span data="D_undefined" class="delete_btn glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 15px;"></span><input  style="border: none;"  /></li>
+					  <li class="list-group-item">test</li> 
+					</ul>
+					-->
+		 	    </div>  
+			    <div class="right web-font">  
+			    	<h4 id="title_name"  style="padding:50px 0 0 150px;font-size: 20px;">角色名称</h4>
+		                     <form class="form-horizontal" role="form"  style="margin-top: 50px;" >
+		                     	
+		                     	<div class="form-group" >
+		                          <label class="col-sm-3"  >航班列表</label>
+		                          
+		                          <div class="col-sm-2">
+		                           	<div class="checkbox checkbox-primary">
+				                        <input id="HBLB_S_1" class="styled" type="checkbox" >
+				                        <label for="HBLB_S_1">
+				                            	查看
+				                        </label>
+			                    	</div> 
+		                          </div>	                          
+		                          <!--
+		                          <div class="col-sm-2">
+		                            	<div class="checkbox checkbox-primary">
+				                        <input id="HBLB_U" class="styled" type="checkbox" >
+				                        <label for="HBLB_U">
+				                            	修改
+				                        </label>
+			                    	</div>
+		                          </div>
+		                          -->
+		                       	</div>
+		                       	
+		                       	<div class="form-group" >
+		                          <label class="col-sm-3"  >计划列表</label>
+		                          
+		                          <div class="col-sm-2">
+		                           	<div class="checkbox checkbox-primary">
+				                        <input id="JHLB_S_2" class="styled" type="checkbox" >
+				                        <label for="JHLB_S_2">
+				                            	查看
+				                        </label>
+			                    	</div> 
+		                          </div>	                          
+		                          
+		                          <!--
+		                          <div class="col-sm-2">
+		                            	<div class="checkbox checkbox-primary">
+				                        <input id="JHLB_U" class="styled" type="checkbox" >
+				                        <label for="JHLB_U">
+				                            	修改
+				                        </label>
+			                    	</div>
+		                          </div> 
+		                          -->
+		                       	</div>
+		                       	
+		                       	<div class="form-group" >
+		                          <label class="col-sm-3"  >天气列表</label>
+		                          
+		                          <div class="col-sm-2">
+		                           	<div class="checkbox checkbox-primary">
+				                        <input id="TQLB_S_3" class="styled" type="checkbox" >
+				                        <label for="TQLB_S_3">
+				                            	查看
+				                        </label>
+			                    	</div> 
+		                          </div>	                          
+		                          
+		                          <!--
+		                          <div class="col-sm-2">
+		                            	<div class="checkbox checkbox-primary">
+				                        <input id="TQLB_U" class="styled" type="checkbox" >
+				                        <label for="TQLB_U">
+				                            	修改
+				                        </label>
+			                    	</div>
+		                          </div> 
+		                          -->
+		                       	</div>
+		                       	
+		                       	<div class="form-group" >
+		                          <label class="col-sm-3"  >报文列表</label>
+		                          
+		                          <div class="col-sm-2">
+		                           	<div class="checkbox checkbox-primary">
+				                        <input id="BWLB_S_4" class="styled" type="checkbox" >
+				                        <label for="BWLB_S_4">
+				                            	查看
+				                        </label>
+			                    	</div> 
+		                          </div>	                          
+		                          
+		                          <!--
+		                          <div class="col-sm-2">
+		                            	<div class="checkbox checkbox-primary">
+				                        <input id="BWLB_U" class="styled" type="checkbox" >
+				                        <label for="BWLB_U">
+				                            	修改
+				                        </label>
+			                    	</div>
+		                          </div>
+		                          -->
+		                       	</div>
+		                       	
+		                       	<div class="form-group" >
+		                          <label class="col-sm-3"  >用户管理</label>
+		                          
+		                          <div class="col-sm-2">
+		                           	<div class="checkbox checkbox-primary">
+				                        <input id="YHGL_S_6" class="styled" type="checkbox" >
+				                        <label for="YHGL_S_6">
+				                            	查看
+				                        </label>
+			                    	</div> 
+		                          </div>	                          
+		                          
+		                          <div class="col-sm-2">
+		                            	<div class="checkbox checkbox-primary">
+				                        <input id="YHGL_U_7" class="styled" type="checkbox" >
+				                        <label for="YHGL_U_7">
+				                            	修改
+				                        </label>
+			                    	</div>
+		                          </div> 
+		                       	</div>
+		                       	
+		                       	<div class="form-group" >
+		                          <label class="col-sm-3"  >权限管理</label>
+		                          
+		                          <div class="col-sm-2">
+		                           	<div class="checkbox checkbox-primary">
+				                        <input id="QXGL_S_8" class="styled" type="checkbox" >
+				                        <label for="QXGL_S_8">
+				                            	查看
+				                        </label>
+			                    	</div> 
+		                          </div>	                          
+		                          
+		                          <div class="col-sm-2">
+		                            	<div class="checkbox checkbox-primary">
+				                        <input id="QXGL_U_9" class="styled" type="checkbox" >
+				                        <label for="QXGL_U_9">
+				                            	修改
+				                        </label>
+			                    	</div>
+		                          </div> 
+		                       	</div>
+		                       	
+		                       	<div class="form-group" >
+		                          <label class="col-sm-3"  >日志管理</label>
+		                          
+		                          <div class="col-sm-2">
+		                           	<div class="checkbox checkbox-primary">
+				                        <input id="RZGL_S_10" class="styled" type="checkbox" >
+				                        <label for="RZGL_S_10">
+				                            	查看
+				                        </label>
+			                    	</div> 
+		                          </div>	                          
+		                          <!--
+		                          <div class="col-sm-2">
+		                            	<div class="checkbox checkbox-primary">
+				                        <input id="RZGL_U_11" class="styled" type="checkbox" >
+				                        <label for="RZGL_U_11">
+				                            	修改
+				                        </label>
+			                    	</div>
+			                    	-->
+		                          </div>
+		                          
+		                          <!--start 统计管理-->
+		                          <div class="form-group" >
+		                          <label class="col-sm-3"  >统计管理</label>
+		                          
+		                          <div class="col-sm-2">
+		                           	<div class="checkbox checkbox-primary">
+				                        <input id="TJGL_S_11" class="styled" type="checkbox" >
+				                        <label for="TJGL_S_11">
+				                            	查看
+				                        </label>
+			                    	</div> 
+		                          </div>	     
+		                       	</div>
+		                       	<!--end 统计管理-->
+  								<!--s-按钮-->
+  								<div style="float: right;padding-right: 50px;" id="rl_btn_group2">
+							    	<button id="btn_save" type="button" class="btn btn-default btn-primary">
+						                <span class="glyphicon" aria-hidden="true"></span>保存
+						            </button> 
+						            <button id="btn_cancel" type="button" class="btn btn-default btn-danger">
+						                <span class="glyphicon" aria-hidden="true"></span>取消
+						            </button>
+					            </div> 
+		                       	<!--e-按钮-->
+		                     </form>
+				   
+			              
+			    </div>  
+			  
+		 </div>
+ 
+		 <script>
+		 	
+		 	var nowselectLi = ""; 
+		 	
+		 	
+		 	
+
+		 	$("#btn_cancel").click(function(){
+				//$(".styled").prop("checked", false);//取消所有复选框
+				//console.log(nowselectLi);
+				if(nowselectLi=="new")
+				{
+					//当前是新增未保存角色
+					//删除角色，初始化当前角色
+					nowselectLi = "";
+					//$("#mylistgroup").children().last().remove(); 
+					
+					 //$("#btn_save").attr('disabled',true); 
+				 	//$("#btn_cancel").attr('disabled',true); 
+				 	
+				 	
+				 		nowselectLi = "";
+					$(".styled").prop("checked", false);
+			        $('.mylist li').removeClass('mylistLiAc')
+					$("#btn_save").attr('disabled',true); 
+					$("#btn_cancel").attr('disabled',true); 
+					$("#new").remove();
+				 	
+				 	
+					 initSelectUl();
+				}else
+				{
+					//已经入库的角色数据
+					//还原当前角色
+					$("#btn_save").attr('disabled',true); 
+					$("#btn_cancel").attr('disabled',true); 
+					for(var i = 0;i<menu.length;i++)
+					{
+						if(nowselectLi==menu[i].id)
+						{
+						 	//初始化选中
+							var y = $("#mylistgroup").children().eq(i);  
+							y.click();
+							y.children()[1].click(); 
+						} 
+					}
+					
+				}
+			}) 
+			 
+			     $('.checkbox').click(function(){  
+			         $("#btn_save").attr('disabled',false); 
+				 	$("#btn_cancel").attr('disabled',false); 
+			    });  
+			    
+			    
+			var userRole = new Object();
+			$("#btn_save").click(function(){
+				 var d=$(".styled");				 
+				 var functions = new Array();
+				 if(nowselectLi=="")
+				 {
+				 	showMsg("请选择角色名称");
+				 	return;
+				 }else if(nowselectLi =="new")
+				 {
+				 	//保存新增的角色
+				 	userRole ["roleName"] = $(".mylistLiAc")[0].children[1].value;
+				 	if(userRole ["roleName"].split(" ").join("")=="")
+				 	{
+				 		showMsg("请先填写角色名");
+				 	}
+				 	$.each(d,function (index,domEle){				
+							if($("#"+domEle.id).prop("checked"))
+							{
+								var comb = domEle.id.split("_");
+								//console.log("选中"+domEle.id);
+								var obj = new Object();
+								//"id":1,"code":"S"
+								obj["id"] = comb[2];
+								obj["code"] = comb[1];
+								functions.push(obj); 
+							}
+						//console.log(functions);
+		//				  d是要遍历的集合 
+		//				  index就是索引值 
+		//				  domEle 表示获取遍历每一个dom对 
+						});
+						
+						userRole["functions"] = functions; 
+						//console.log(role);
+						//console.log(JSON.stringify(role));
+						sendType = "addrole";
+						getJson("sys/roleadd",sendBack,JSON.stringify(userRole));
+				 	//console.log();
+				 }else
+				 {
+				 	//修改用户
+				 	userRole ["roleName"] = $(".mylistLiAc")[0].children[1].value;
+				 	userRole ["id"] = nowselectLi;
+				 	$.each(d,function (index,domEle){				
+							if($("#"+domEle.id).prop("checked"))
+							{
+								var comb = domEle.id.split("_");
+								console.log("选中"+domEle.id);
+								//console.log("选中"+index);
+								var obj = new Object();
+								//"id":1,"code":"S"
+								obj["id"] = comb[2];
+								obj["code"] = comb[1];
+								functions.push(obj); 
+							} 
+						});
+						
+						userRole["functions"] = functions;
+						
+						sendType = "roleupdate"
+						//console.log(JSON.stringify(userRole));
+						getJson("sys/roleupdate",sendBack,JSON.stringify(userRole));
+						
+						
+				 	//console.log('xg');
+				 }
+			})
+			
+		 	
+		 	  $('.styled').click(function(e){
+		 	  	//console.log($("#"+e.currentTarget.id).prop("checked"));	 	 
+		 	  	
+		 	  	if($("#"+e.currentTarget.id).prop("checked")==true)
+		 	  	{ 
+		 	  		$("#"+e.currentTarget.id).prop("checked", true);
+		 	  	}else
+		 	  	{  
+		 	  		$("#"+e.currentTarget.id).prop("checked", false); 
+		 	  	}
+		 	  	 
+		 	  	//console.log(e.currentTarget.checked);
+		 	  	//e.currentTarget.attr("checked", false);
+		 	  	//e.currentTarget.prop('checked', false);
+		 	  	//e.currentTarget.checked = false;
+         //判断apple是否被选中
+//       var bischecked=$('#cboxchecked').is(':checked');
+//       var fruit=$('input[name="fruit"]');
+//       bischecked?fruit.attr('checked',true):fruit.attr('checked',false);
+         });
+		 	
+		 	var menu = new Array();
+		 	var sendType = "rolelist";
+			$(function () {  
+				 $("#btn_save").attr('disabled',true); 
+				 $("#btn_cancel").attr('disabled',true); 
+
+				if($QXGL==false)
+				{
+					$("#rl_btn_group").hide();
+					$("#rl_btn_group2").hide();
+					
+				}
+			  	getJson("/sys/rolelist",sendBack,"");
+			});
+			
+			
+			//初始化选择当前选角色选线
+			var dataJson = parseParam(window.location.href);	     	
+			var nowrid = dataJson.rid.replace("#","");//;//用户当前角色
+			function initSelectUl()
+			{
+				for(var i = 0;i<menu.length;i++)
+					{
+						//console.log(nowrid+"===="+menu[i].id);
+						if(nowrid==menu[i].id)
+						{
+						 	//初始化选中
+							var y = $("#mylistgroup").children().eq(i); 
+							//console.log(y);
+							y.click();
+							y.children()[1].click(); 
+						} 
+					}
+			
+			}
+			
+			var newOrup = "";
+			function sendBack(data)
+			{
+				//console.log(data);
+				
+				if(data.c.errorCode=="005")
+				{
+					showMsg("该角色名称已存在,请更换角色名");
+					return;
+				}
+				
+				if(sendType == "rolelist")
+				{
+					//获取当前用户角色ID
+					
+	         		var init_index_select;
+	         		
+					nowselectLi = "";
+					 $("#title_name").html("角色名称");
+					$(".styled").prop("checked", false); 
+					$("#mylistgroup").empty();
+					menu = data.c.roles;
+					//console.log(menu);
+					for(var i = 0;i<menu.length;i++)
+					{
+						if(nowrid==menu[i].id)
+						{
+							init_index_select = i;
+						}
+						$("#mylistgroup").append('<li id='+menu[i].id+' class="list-group-item"><span data="D_undefined" class="delete_btn glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 15px;"></span><input  value='+menu[i].roleName+' ondblclick="doEdit(this)" onchange="doinputChange(this)"  onblur="input_onblur(this)" onfocus="input_onfocus(this)" readonly/></li>');
+
+					}
+					
+					
+					
+					
+					$("#btn_save").attr('disabled',true); 
+					$("#btn_cancel").attr('disabled',true); 
+					if(newOrup == "new")
+					{
+						
+						var y = $("#mylistgroup").children().last();//.children()[1]//.focus();
+						 y.click();
+						 y.children()[1].ondblclick(); 
+					}else if(newOrup =="up")
+					{ 
+						var y = $("#mylistgroup").children().eq(up_index);
+						//console.log($("#mylistgroup").children().last());
+							//console.log($("#mylistgroup").children().eq(up_index));
+						 y.click();
+						 y.children()[1].ondblclick(); 
+					}else
+					{
+						initSelectUl();
+					}
+					
+					
+	         		
+					 //var y = $("#mylistgroup").children().last();//.children()[1]//.focus();
+					 //y.click();
+					 //y.children()[1].ondblclick(); 
+					
+					
+					newOrup = "";
+					//console.log(data);
+				}else if(sendType == "addrole")
+				{
+					//console.log(data);
+					if(data.c.flag==1)
+					{				 
+						sendType = "rolelist";
+						getJson("sys/rolelist",sendBack,"");
+						showMsg("角色创建成功...");
+						newOrup = "new";
+						
+						//userRole["menus"] = userRole["functions"];
+						//$(".mylistLiAc")[0].id = data.c.id;
+						//userRole["id"] = data.c.id;
+						//userRole["list"] = new Array();
+						//menu.push(userRole);
+						//console.log(menu);
+					}
+				}else if(sendType == "roledel")
+				{
+					//console.log(data);
+					if(data.c.flag==1)
+					{
+						
+						sendType = "rolelist";
+						getJson("sys/rolelist",sendBack,"");
+						showMsg("角色删除成功...");
+					}
+				}else if(sendType == "roleupdate")
+				{
+					//console.log(data);
+					if(data.c.flag==1)
+					{
+						newOrup = "up";
+						sendType = "rolelist";
+						getJson("sys/rolelist",sendBack,"");
+						showMsg("角色修改成功..."); 
+					}					
+				}
+			}
+
+		 
+		 	
+//		 	$('.mylist li input').focusout(function(e){  
+//			   console.log(this);
+//			})  
+			
+			//var $mylistNav = $('.mylist li');
+			//$(".mylist li").live("click",function(){
+				
+				function input_onblur(e)
+				{ 
+					e.readOnly=true;
+					//console.log(e.value);
+//					if(e.value=="")
+//					{
+//						e.value = "未命名";
+//					}
+					return;
+					//e.style.borderColor = "#00"; 
+					//e.style.backgroundColor="transparent";
+				 
+				}
+//				
+				function input_onfocus(e)
+				{
+					return;
+					e.style.borderColor = "#060"; 
+					e.style.backgroundColor="#ffffff";
+				}
+//				
+				var up_index;
+				$('.mylist').on("click", "li", function () {  
+					//console.log($("#btn_save").prop("disabled"));
+					//console.log($(this)[0].id+"==="+nowselectLi);
+					
+					if($(this)[0].id==nowselectLi&&$("#btn_save").prop("disabled")==false)
+					{
+						if($(this)[0].id=="new")
+						{
+							$("#btn_save").attr('disabled',false); 
+							$("#btn_cancel").attr('disabled',false); 
+						}
+						return;
+					}
+					
+					if($("#btn_save").prop("disabled")==false)
+					{
+						var txt=  "当前权限未保存，是否跳转页面?";
+						var option = {
+							title: "提示",
+							btn: parseInt("0011",2),
+							onOk: function(){
+								
+								//console.log(option);
+								$this = option.myobj;
+								
+								
+									$(".styled").prop("checked", false);
+			                    	$('.mylist li').removeClass('mylistLiAc')
+				                    $this.addClass('mylistLiAc') 
+				                    
+				                    
+				                    nowselectLi =  $this[0].id;
+				                    //console.log(nowselectLi);
+				                    if(nowselectLi=="new")
+				                    {
+				                   		$("#btn_save").attr('disabled',false); 
+								 		$("#btn_cancel").attr('disabled',false); 
+								 	}else
+								 	{
+								 		$("#btn_save").attr('disabled',true); 
+								 		$("#btn_cancel").attr('disabled',true); 
+								 	}
+				                    
+				                    	
+				                    //console.log( $(this)[0].id);
+				                    if($this[0].id!="")
+				                    {
+				                    	for(var i = 0;i<menu.length;i++)
+					                    { 
+					                    
+					                    	if(menu[i].id == $this[0].id)
+					                    	{	
+					                    		up_index = i;
+					                    		//console.log(menu[i].menus);
+					                    		setAllCheckBox(menu[i].menus);
+					                    	}
+					                    }	
+				                    }
+				                    $("#title_name").html($this[0].children[1].value);
+							},
+							myobj:$(this)
+						}
+						window.wxc.xcConfirm(txt, "custom", option);
+					}else
+					{
+						 	$("#btn_save").attr('disabled',true); 
+						 	$("#btn_cancel").attr('disabled',true); 
+							
+								$(".styled").prop("checked", false);
+		                    	$('.mylist li').removeClass('mylistLiAc')
+			                    $(this).addClass('mylistLiAc') 
+			                    
+			                    nowselectLi =  $(this)[0].id
+			                    
+			                      if(nowselectLi=="new")
+				                    {
+				                   		$("#btn_save").attr('disabled',false); 
+								 		$("#btn_cancel").attr('disabled',false); 
+								 	}else
+								 	{
+								 		$("#btn_save").attr('disabled',true); 
+								 		$("#btn_cancel").attr('disabled',true); 
+								 	}
+			                    //console.log( $(this)[0].id);
+			                    if($(this)[0].id!="")
+			                    {
+			                    	for(var i = 0;i<menu.length;i++)
+				                    { 
+				                    
+				                    	if(menu[i].id == $(this)[0].id)
+				                    	{	
+				                    		up_index = i;
+				                    		//console.log(menu[i].menus);
+				                    		setAllCheckBox(menu[i].menus);
+				                    	}
+				                    }	
+			                    }
+			                    $("#title_name").html($(this)[0].children[1].value);
+					}
+					
+ 
+
+//if(window.confirm('你确定要取消交易吗？')){
+//              
+//            }else{
+//               //取消
+//               return false;
+//           } 
+					
+               });
+               
+               function setAllCheckBox(menuarr)
+               { 
+               	//console.log(menuarr);
+               	if(menuarr==undefined)
+               	{
+               		//没有设置权限节点
+               		return;
+               	}
+	               	for(var i=0;i<menuarr.length;i++)
+	               	{ 
+	               		//console.log(menuarr[i].list);
+	               		if(menuarr[i].list==undefined)
+	               		{
+	               			menuarr[i].list = new Array();
+	               		}
+	               		//console.log(menuarr);
+	               		
+	               		if(menuarr[i].list.length>0)
+	               		{
+	               			for(var j = 0;j<menuarr[i].list.length;j++)
+	               			{
+	               				var functions = menuarr[i].list[j].functions;
+			               		for(var x=0;x<functions.length;x++)
+			               		{
+			               			//console.log(menuarr[i].list[j].code+"_"+functions[x].code+"_"+functions[x].id);
+			               			var name = menuarr[i].list[j].code+"_"+functions[x].code+"_"+functions[x].id;
+			               			$("#"+name).prop("checked", true);
+			               			//$("#RZGL_U_11").attr("checked", true);			               			
+			               		}
+	               			}	               			
+	               		}else
+	               		{
+		               		var functions = menuarr[i].functions;
+		               		for(var x=0;x<functions.length;x++)
+		               		{
+		               			//console.log(menuarr[i].code+"_"+functions[x].code+"_"+functions[x].id);
+		               			var name = menuarr[i].code+"_"+functions[x].code+"_"+functions[x].id;
+      						    $("#"+name).prop("checked", true);
+		               		}
+	               		}
+	               	}               	
+               }
+			
+				function doEdit(e)
+				{ 
+					e.readOnly=false;
+					e.focus();
+				}
+				
+				function doinputChange(e)
+				{ 
+					 $("#btn_save").attr('disabled',false); 
+				 	$("#btn_cancel").attr('disabled',false); 
+				}
+ 
+			
+			
+		//添加按钮
+		$("#btn_add").click(function(e){
+//			
+			if($("#mylistgroup").children().last().attr("id")=="new")
+			{
+				showMsg("请先保存或删除列表里最后一个角色");
+				return;
+			}
+ 
+			// onblur="input_onblur(this)" onfocus="input_onfocus(this)"
+			$("#mylistgroup").append('<li id="new" class="list-group-item"><span data="D_undefined" class="delete_btn glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 15px;"></span><input ondblclick="doEdit(this)"  onblur="input_onblur(this)" onfocus="input_onfocus(this)" readonly/></li>');
+			
+			 var y = $("#mylistgroup").children().last();//.children()[1]//.focus();
+			 y.click();
+			 y.children()[1].ondblclick(); 
+//			$("#btn_save").attr('disabled',false); 
+//			$("#btn_cancel").attr('disabled',false); 
+		});
+		
+		//删除按钮
+		$("#btn_delete").click(function(e){
+			
+			if(nowselectLi=="")
+			{
+				showMsg("请选择角色名称");
+				return;
+			}else if(nowselectLi=="new")
+			{
+//				console.log(up_index);
+//				var y = $("#mylistgroup").children().eq(up_index);
+//				console.log(y);
+					nowselectLi = "";
+					$(".styled").prop("checked", false);
+			        $('.mylist li').removeClass('mylistLiAc')
+					$("#btn_save").attr('disabled',true); 
+					$("#btn_cancel").attr('disabled',true); 
+					$("#new").remove();
+					initSelectUl();
+			}
+			else
+			{
+				
+				//console.log(nowselectLi);
+				var txt=  "确认删除角色："+$("#title_name").html()+"?";
+						var option = {
+							title: "提示",
+							btn: parseInt("0011",2),
+							onOk: function(){
+								 //console.log('ddd'+nowselectLi);
+								sendType = "roledel";
+								getJson("sys/roledel",sendBack,'{"id":"'+nowselectLi+'"}');	 	
+							},
+							 
+						}
+						window.wxc.xcConfirm(txt, "custom", option);
+				
+				
+				
+				
+				//console.log(nowselectLi);
+//				sendType = "roledel";
+//				getJson("sys/roledel",sendBack,'{"id":"'+nowselectLi+'"}');	 	
+			}	
+		});
+		 </script>
+	</body>
+</html>

@@ -1,0 +1,55 @@
+/*login 页面的样式*/
+
+
+
+.login_wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    height: 400px;
+    margin: auto;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px 4px #333;
+    border: 1px solid #ddd;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.login_title {
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 20px;
+    font-weight: bold;
+    color: #59C2E6;
+}
+
+.form_title {
+    text-align: center;
+    margin-top: 15px;
+    color: #333;
+}
+
+.form_wrap .input-group {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    /*padding: 0 15px;*/
+}
+
+.form_wrap .glyphicon {
+    color: #59C2E6;
+    top: 0px;
+}
+
+.login_btn {
+    text-align: center;
+}
+
+.login_btn .btn {
+    width: 80%;
+    padding: 10px 0;
+}

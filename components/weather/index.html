@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="./css/components/weather.css" />
+<section class='weather_wrap web-font'>
+    <div class='weather_content clearfix'>
+    	<!--天气列表-->
+    	<div class="weather_list">
+    		<ul class='weather_list_content'>
+    			<!--添加的机场的天气列表-->
+    			
+    		</ul>
+    		<!--输入框输入信息添加-->
+    		<div class="add_list_info">
+				<div class='input-group'>
+			        <input type="text" class="form-control add_list_input" placeholder="机场四字码" >
+			        <div class="input-group-addon add_list_btn"><i class='panel-icon'>&#xe68a;</i></div>
+			        <div class='weather_delete_val'><i class='panel-icon' style='font-size: 20px;'>&#xe601;</i></div>
+			    </div>
+			    
+			</div>
+			<!--符合输入条件的机场四字码-->
+			<ul class='add_airport_code'>
+			    	
+			</ul>
+			
+			<!--下方的添加按钮-->
+    		<div class='add_w_list'>
+    			<i class='weather-add-icon'>&#xe64b;</i>
+    		</div>
+    		
+    	</div>
+    	<!--天气内容详情-->
+        <div class="weather_detail">
+        		<!--METAR 天气信息-->
+			<div class='weather_header clearfix'>
+		        		<div class='weather_list_icon'>
+		        			<span><i class='weather-fold-icon'>&#xe6b3;</i></span>
+		        		</div>
+		        		<!--天气头部 搜索和显示天气列表的图标-->
+		        		<div class="weather_search">
+						  <div class='search input-group'>
+			                <input type="text" class="form-control search_input" placeholder="输入机场四字码">
+			                <div class="input-group-addon search_icon"><i class='panel-icon'>&#xe638;</i></div>
+			                <div class='weather_delete_val'><i class='panel-icon' style='font-size: 20px;'>&#xe601;</i></div>
+			              </div>
+			              <!--符合输入条件的机场四字码-->
+						   <ul class='search_code'>
+						    	
+						    </ul> 
+						</div>
+						<!--观察时间-->
+					    <div class='obs_time' style='float: right;'> 
+					    	<!--2017.08.24-->
+					    </div>
+		    </div>
+        	<!--轮播图-->
+        	 <!--data-ride="carousel" 自动播放-->
+        	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">	
+			  <!-- Indicators -->
+			  <!--<ol class="carousel-indicators">
+			    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+			    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+			    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+			  </ol>-->
+			  <!-- Wrapper for slides -->
+			  <div class="carousel-inner" role="listbox">
+			    <!--<div class="item active weather_metar">
+			    </div>	
+			    <div class="item weather_speci">
+			    </div>
+			    <div class='item weather_taf'>
+			    	
+			    </div>-->
+			  </div>
+			  <!-- Controls -->
+			  <!--<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span>
+			  </a>
+			  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>-->
+			  <a class='left' href="#">
+			  	<i class='panel-icon' style='font-size: 40px;'>&#xe600;</i>
+			  </a>
+			  <a class='right' href="#">
+			  	<i class='panel-icon' style='font-size: 40px;'>&#xe62b;</i>
+			  </a>
+			</div>
+        	
+        </div>
+    </div>
+</section>
+<script type='text/javascript' src='./js/components/weather.js'></script>

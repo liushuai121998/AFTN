@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repos/base_project_pds_atc/!svn/ver/739/trunk/fdp/AFTN/aftn_web/asset/lib/calendar
+END
+dateRange.css
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/base_project_pds_atc/!svn/ver/680/trunk/fdp/AFTN/aftn_web/asset/lib/calendar/dateRange.css
+END
+jedate.css
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/base_project_pds_atc/!svn/ver/739/trunk/fdp/AFTN/aftn_web/asset/lib/calendar/jedate.css
+END
+dateRange.js
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/base_project_pds_atc/!svn/ver/700/trunk/fdp/AFTN/aftn_web/asset/lib/calendar/dateRange.js
+END
+jquery.jedate.js
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/base_project_pds_atc/!svn/ver/739/trunk/fdp/AFTN/aftn_web/asset/lib/calendar/jquery.jedate.js
+END
+monthPicker.css
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos/base_project_pds_atc/!svn/ver/680/trunk/fdp/AFTN/aftn_web/asset/lib/calendar/monthPicker.css
+END
+monthPicker.js
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repos/base_project_pds_atc/!svn/ver/680/trunk/fdp/AFTN/aftn_web/asset/lib/calendar/monthPicker.js
+END

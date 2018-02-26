@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title> 
+
+		    <link rel="stylesheet" href="./asset/lib/bootstraptable/css/bootstrap-table.min.css">
+		    
+			<script src="./asset/lib/bootstraptable/js/bootstrap-table.js"></script> 
+			<style>
+				/***
+				.table-striped > tbody > tr:nth-of-type(odd)
+				{
+					background-color:#F9F9F9;
+				}
+				**/
+				.fixed-table-container tbody .selected td {
+					background-color: #ccffcc;
+				}
+/*	/*	/*	/*	/*
+		 		 .modal-backdrop
+		 		 {
+		 		 	z-index: 10;
+		 		 }*/
+		 		
+	.btn-primary  
+	{
+		color: #fff !important;
+	}
+	.btn-danger
+	{
+		color: #fff !important;
+	}
+	
+	
+			</style>
+	</head>
+	
+					<!-- 用户管理弹框 -->
+<div id="myModal-user" class="modal fade"  tabindex="-1" role="dialog "  >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"  style="width: 800px;" >
+      <div class="modal-header">
+         <h4 class="modal-title" id="myModal-user-title">系统消息</h4>
+      </div>
+      <div class="modal-body">
+        <form id="myuserform" class="form-horizontal" role="form">
+                    <fieldset>
+                       <div class="form-group">
+                          <label class="col-sm-2 control-label" for="ds_Name">*姓名</label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_name" type="text" placeholder="人员姓名"  onkeyup="value=value.replace(/[0-9]+/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[0-9]+/g,''))"/>
+                          </div>
+                          
+                           <label class="col-sm-2 control-label" for="ds_loginName">*用户名</label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_loginName" type="text" placeholder="登陆账号" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
+                          </div> 
+                       </div>
+                       <div class="form-group">
+                         <label class="col-sm-2 control-label" for="ds_workNum">*工号</label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_workNum" type="text" placeholder="工号" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
+                          </div>
+                         
+                          <label class="col-sm-2 control-label" for="ds_cardNum">身份证</label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_cardNum" type="text" placeholder="身份证"/>
+                          </div>
+                          
+                          
+                       </div>
+                       <div class="form-group">
+                          <label class="col-sm-2 control-label" for="ds_deptId ">*部门</label>
+                        
+                           <div class="col-sm-4 ">
+                              <select id="ds_deptId" class="form-control">
+                                  
+                              </select>
+                           </div> 
+                        <!--
+                          <label class="col-sm-2 control-label" for="ds_password">确认密码</label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_password" type="text" placeholder="再次输入密码"/>
+                          </div>
+                         -->
+                           <label class="col-sm-2 control-label" for="ds_roleId">*用户角色</label>
+                         <div class="col-sm-4 ">
+                              <select   id="ds_roleId" class="form-control"  >
+                                 
+                              </select>
+                           </div> 
+                       </div>
+                    
+                    <div class="form-group">
+                          <label class="col-sm-2 control-label" for="ds_telphone">*手机号</label>
+                          <div class="col-sm-4">
+                             <input class="form-control" id="ds_telphone" type="text" placeholder="手机号" maxlength="11"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                          </div>
+                          
+                            <label class="col-sm-2 control-label" for="ds_email">邮箱</label>
+                         <div class="col-sm-4">
+                             <input class="form-control" id="ds_email" type="text" placeholder="邮箱"/>
+                          </div>
+                         
+                       </div>
+                       
+                        <span style="color: blue;">提示:用户密码初始化与登录名相同</span>
+                    
+                    </fieldset>
+                    
+                </form>
+		
+      </div>
+      <div class="modal-footer"><!--<span style='color:#F5A833'>进程名称</span><br/>--></br/>
+      	<span id="f_msg" style="padding-left: 10px;float: left;color: red;"></span>
+        <button type="button" class="btn  btn-primary"  onclick="dosaveUser()">保存</button> 
+         <button type="button" class="btn  btn-primary"  onclick="docloseUser()">取消</button> 
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<body>
+	
+ <div class="panel-body">
+ 	
+ 	<!--
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group" style="margin-top:15px">
+                        <label class="control-label col-sm-1" for="txt_search_departmentname">部门名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_departmentname">
+                        </div>
+                        <label class="control-label col-sm-1" for="txt_search_statu">状态</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="txt_search_statu">
+                        </div>
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>      
+-->
+
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            </button> 
+            <button id="btn_delete" type="button" class="btn btn-default btn-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>
+        </div>
+        <table id="tb_departments"  class="table mytable-S web-font"></table>
+    </div>
+ 
+
+	<script>
+		
+ function docloseUser()
+ {
+ 	
+ 		$("#f_msg").html('');
+		$("#ds_loginName").val('');
+		$("#ds_workNum").val('');
+		$("#ds_cardNum").val('');
+		$("#ds_name").val('');
+		$("#ds_telphone").val('');
+		$("#ds_email").val('');
+		
+		
+//		var s=document.getElementById("ds_deptId")
+//		s.options[s.selectedIndex].removeAttribute("selected");
+//		
+//		
+//		var s=document.getElementById("ds_roleId")
+//		s.options[s.selectedIndex].removeAttribute("ds_roleId");
+		
+		//s.options[s.selectedIndex].removeAttribute("selected");
+		
+		document.getElementById("ds_deptId").options[document.getElementById("ds_deptId").selectedIndex].removeAttribute("selected");
+	 	document.getElementById("ds_roleId").options[document.getElementById("ds_roleId").selectedIndex].removeAttribute("selected");
+
+		//$("#ds_deptId option:selected").attr("selected", "");
+	 
+		//document.getElementById("ds_deptId").options.selectedIndex = 0; //回到初始状态 
+ 		//document.getElementById("ds_roleId").options.selectedIndex = 0; //回到初始状态 
+ 		
+ 		   //document.getElementById("ds_deptId").options.removeAttr("selected");  
+ 		 		//document.getElementById("ds_roleId").options.removeAttr("selected");   //回到初始状态 
+
+ // $("#ds_deptId option:checked").attr("selected", "");
+    //$("#ds_deptId option:checked").attr("selected", "");
+ // $("#ds_roleId option:checked").attr("selected", "");
+  
+//
+//    $("#ds_deptId").each(function (i) {
+//              
+//                  $(this).attr("selected", "");
+//             
+//          }
+//          );
+//          
+//              $("#ds_roleId").each(function (i) {
+//              
+//                  $(this).attr("selected", "");
+//             
+//          }
+//          );
+//          
+            
+        //$("#ds_deptId").option.removeAttr("selected");  
+        //$("#ds_roleId").option.removeAttr("selected");  
+
+  
+  
+//document.getElementById("ds_deptId").options.selectedIndex = 0;  
+//document.getElementById("ds_roleId").options.selectedIndex = 0;
+
+//$("#ds_deptId").removeAttr("selected")
+  //$("#ds_roleId").removeAttr("selected") 
+
+ 
+ 		//$(".selector").find("option[text='pxx']").attr("selected",true); 
+ 		
+ 		//$("#ds_deptId").selectpicker('refresh');
+		//$("#ds_deptId option[value='-1']").attr("selected","selected");  
+	 	//$("#ds_roleId option[value='-1']").attr("selected","selected");  
+			//addUserObj["roleId"] = selectroleId;
+			//addUserObj["deptId"] = selectdeptId;
+ 				//document.getElementById("ds_deptId").options.selectedIndex = 0; //回到初始状态 
+
+ 	//$("#role-select option:selected").val()
+ 	 
+
+ 	
+ 	
+ 	    $('#myModal-user').modal('hide');
+ }
+ 
+ var sendType = "deptlist";
+$(function () { 
+	
+
+	//延迟50毫秒执行，因为太快会发生高度计算不精准
+	setTimeout(function () {
+   initDT();
+   //setDateTable();
+   	if($YHGL==false)
+	{
+		$("#toolbar").hide();
+		
+$('#tb_departments').bootstrapTable('hideColumn', 'operate');
+	}
+    
+   getJson("sys/deptlist",sendBack,"");
+              		//getJson("/sys/userlist",setDateTable,"");
+
+  }, 50);	
+});
+
+ 
+//监听回调，主页面派发的事件
+//document.addEventListener('pageReback', function(e){  
+//// e.target matches the elem from above  
+// // $("#tb_departments").bootstrapTable('destroy'); 
+////$("#tb_departments").bootstrapTable('refresh');
+//initDT();
+//	setDateTable();
+//console.log('dddd');
+//}, true);
+
+
+	var selectdeptId = "";
+	//选择部门
+    $('#ds_deptId').change(function(e){
+                //console.log($(":selected","#dept-select").attr("value"));
+                selectdeptId = $(":selected","#ds_deptId").attr("value");			 
+	 })
+    
+    var selectroleId = "";
+    	//选择部门
+    $('#ds_roleId').change(function(e){
+                //console.log($(":selected","#ds_roleId").attr("value"));
+                selectroleId = $(":selected","#ds_roleId").attr("value");			 
+	 })
+       
+       
+function initDT()
+{	
+	 var T_height = $(window).height()-90;  
+	 //$("#tb_departments").bootstrapTable('destroy'); 
+
+	 $('#tb_departments').bootstrapTable({
+            //url: '/Home/GetDepartment',         //请求后台的URL（*）
+            //method: 'get',                      //请求方式（*）
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: false,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: false,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            //queryParams: oTableInit.queryParams,//传递参数（*）
+            sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize: 25,                       //每页的记录行数（*）
+            pageList: [25, 50, 100],        //可供选择的每页的行数（*）
+            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                  //是否显示所有的列
+            showRefresh: false,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: false,                //是否启用点击选中行
+            height: T_height,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+            showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+            columns: [{
+                checkbox: true
+            },{
+                field: 'Number',
+                title: '序号',
+                formatter: function (value, row, index) {
+                return index+1;
+            	}
+   			},
+            {
+                field: 'loginName',
+                title: '用户名'
+            }, {
+                field: 'name',
+                title: '姓名'
+            }, {
+                field: 'workNum',
+                title: '工号'
+            },
+            {
+                field: 'deptId',
+                title: '部门',
+                formatter: deptFormatter
+            } ,{
+                field: 'roleId',
+                title: '角色',
+                formatter: roleFormatter
+            } ,  {
+                field: 'addTime',
+                title: '创建时间'
+            } ,   {
+                field: 'lastTime',
+                title: '最后登录时间'
+            } ,
+            {
+                field: 'operate',
+                title: '操作',
+                align: 'center',
+                
+                //events: operateEvents,
+                formatter: operateFormatter
+               }
+            ]
+        });
+}
+
+
+var ButtonInit = function () {
+    var oInit = new Object();
+    var postdata = {};
+
+    oInit.Init = function () {
+        //初始化页面上面的按钮事件
+    };
+
+    return oInit;
+};
+
+function deptFormatter(value, row, index)
+{
+	return deptMap[row.deptId];
+} 
+
+function roleFormatter(value, row, index)
+{ 
+	return roleMap[row.roleId];
+}
+
+
+function operateFormatter(value, row, index) { 
+            return [
+            	' <i data="'+row.id+'" class="key-icon resetkey">&#xe76f;</i>',
+            	' <span   data="'+row.id+'"  class="edit_btn glyphicon glyphicon-pencil" aria-hidden="true"></span>',
+            	' <span   data="'+row.id+'"  class="delete_btn glyphicon glyphicon-remove" aria-hidden="true"></span>'
+            ].join('');
+        }
+ //'<button type="button" data="E_'+row.id+'" class="edit_btn btn btn-default  btn-sm" style="margin-right:15px;">编辑</button>',
+ //               '<button type="button" data="D_'+row.id+'" class="delete_btn btn btn-default  btn-sm" style="margin-right:15px;">删除</button>' 
+
+
+// 
+//      function operateEvents(e,value, row, index)
+//      {
+//      	console.log(e); 
+//      }        
+        
+        
+        $("#btn_add").click(function(e){
+        	save_state = "useradd";
+			$('#myModal-user-title').text("新增用户"); 
+			$("#myModal-user").modal({backdrop:false});
+		});
+		
+		$("#btn_delete").click(function(e){
+			var a= $("#tb_departments").bootstrapTable('getSelections');
+			console.log(a);
+            		 if(a.length<=0){
+            			 //alert("请选中一行")
+            			 showMsg("请勾选需要删除的数据...");
+            		}else{
+            			//			getJson("/sys/userdel",sendBack,"{'id':"+this.getAttribute("data")+"}");
+							for(var i = 0;i<a.length;i++)
+							{
+	            			    $.ajax({
+							        url: serviceUrl + "/sys/userdel",
+							        data: "{'id':"+a[i].id+"}" ,
+							        async:false,
+							        type: "post",
+							        success: function(dataJson) {
+							        	showMsg("删除成功");
+							        	console.log(dataJson);
+							            console.log('删除成功'+a[i].id);
+							        },
+							        error: function() { 
+							            //hideLoading();
+							        }
+							    });
+						   }
+ 							sendType = "deptlist";
+							getJson("sys/deptlist",sendBack,"");//批量删除完成以后，初始化查询一下
+            		} 
+			//console.log("删除");
+		});
+        
+        
+        
+        //$(".edit_btn").click(function(e){
+        var edit_select_userid = "";
+        var edit_select_userindex = "";
+        $('body').on('click' , '.edit_btn' , function(){ 
+        	edit_select_userid = "";
+        	edit_select_userindex = "";
+			for(var i = 0;i < arrayUserList.length;i++)
+			{
+				if(arrayUserList[i].id==this.getAttribute("data"))
+				{
+					edit_select_userid = arrayUserList[i].id;
+					edit_select_userindex = i;
+					formser(arrayUserList[i]);
+					
+					console.log(arrayUserList[i]);
+					//arrayUserList
+					//console.log(arrayUserList[i].id+"===="+i);
+					break;
+				}
+			}
+			
+			save_state = "userupdate";
+			$('#myModal-user-title').text("用户编辑"); 
+			$("#myModal-user").modal({backdrop:false});
+
+		});
+		
+		$('body').on('click' , '.resetkey' , function(){ 
+				sendType = "resetkey";
+			 getJson("sys/passwordinit",sendBack,'{"id":"'+this.getAttribute("data")+'"}');
+
+		});
+		
+		
+	function formser(obj){
+	 	var form=document.getElementById("myuserform");	 	
+	 	for(var i = 0; i < form.elements.length; i++) 
+	 	{
+	 		
+	 		var feled=form.elements[i];  
+	 		//console.log(obj[feled.id.replace("ds_","")]);
+	 		switch(feled.type) {
+	 			case undefined:
+	 			break;
+	 			case 'text':
+	 				//console.log(obj);
+					//console.log(feled.id);
+					$("#"+feled.id).val(obj[feled.id.replace("ds_","")]);
+					
+					//console.log(obj[feled.id.replace("ds_","")]);
+					//ds_
+	 			break;
+	 			case 'select-one':
+	 			console.log(feled.type);
+	 				//$("#"+feled.id+" option[value='"+obj[feled.id.replace("ds_","")]+"']").attr("selected","selected");
+	 				
+	 				
+	 				//document.getElementById("ds_roleId").options.selectedIndex = 0; //回到初始状态 
+ 		
+ 		
+ 		$("#"+feled.id).find("option[value='"+obj[feled.id.replace("ds_","")]+"']").attr("selected",true); 
+	 				
+	 				//$("#ds_deptId option[value='1']").attr('selected","selected");  
+	 				//$("#ds_deptId option[value='1']").attr("selected","selected");  
+	 				//$("#ds_roleId option[value='2']").attr("selected","selected");  
+	 				
+	 				//$("#ds_roleId option[value='"+2+"']").attr("selected","selected");//根据值让option选中  
+
+	 				
+	 			break;
+	 		}
+	 	}
+	 	
+//	 var arr={};
+//	 for (var i = 0; i < form.elements.length; i++) {
+//	 var feled=form.elements[i];
+//	 switch(feled.type) {
+//	 case undefined:
+//	 break;
+//	 case 'button':  
+//	 break;
+//	 case 'input':
+//	 
+//	 break; 
+//	 
+//	 return arr
+ }
+		
+		
+		var delete_select_userindex
+		$('body').on('click' , '.delete_btn' , function(){	
+			
+			for(var i = 0;i < arrayUserList.length;i++)
+			{
+				if(arrayUserList[i].id==this.getAttribute("data"))
+				{
+					delete_select_userindex = i;
+					//arrayUserList
+					//console.log(arrayUserList[i].id+"===="+i);
+					break;
+				}
+			}
+			
+			
+		//$(".delete_btn").click(function(e){
+			sendType = "userdel";
+			
+			getJson("sys/userdel",sendBack,"{'id':"+this.getAttribute("data")+"}");
+			console.log(this.getAttribute("data"));
+		});
+ 		
+ 		var deptMap = new Object();//部门数据
+ 		var roleMap = new Object();//部门数据 
+ 		function sendBack(data)
+ 		{
+ 			//console.log(data);
+ 			if(sendType == "deptlist")
+ 			{ 				
+ 				var selectStr = " <option value='-1'>选择部门</option>";
+ 				//获取部门基础数据以后，加载表格数据 ---部门基础数据
+ 				for(var i=0;i<data.c.depts.length;i++)
+ 				{ 
+ 					deptMap[data.c.depts[i].id] = data.c.depts[i].deptName; 					
+ 					selectStr += "<option value='"+data.c.depts[i].id+"'>"+data.c.depts[i].deptName+"</option>";
+ 				}
+ 				 
+ 				
+ 				$("#ds_deptId").html(selectStr); 
+ 				
+ 				sendType = "rolelist";
+ 				getJson("sys/rolelist",sendBack,""); 
+ 				
+ 			}else if(sendType=="rolelist")
+ 			{ 
+ 				var selectStr = " <option value='-1'>选择角色</option>";
+ 				//获取部门基础数据以后，加载表格数据 ---角色基础数据
+   				for(var i=0;i<data.c.roles.length;i++)
+   				{ 
+   					roleMap[data.c.roles[i].id] = data.c.roles[i].roleName;
+   					selectStr += "<option value='"+data.c.roles[i].id+"'>"+data.c.roles[i].roleName+"</option>";
+   				}
+   				$("#ds_roleId").html(selectStr); 
+   				
+ 				sendType = "userlist";
+			  	getJson("sys/userlist",sendBack,"");
+			  	//console.log(roleMap);
+ 			}
+ 			else if(sendType == "userlist")
+ 			{
+ 				//查询用户列表数据返回
+ 				//console.log(data);
+ 				setDateTable(data);
+ 			}else if(sendType == "useradd")
+ 			{
+ 				//添加用户成功
+ 				if(data.c.flag=="1")
+ 				{
+ 					addUserObj["id"] = data.c.id;
+ 					addUserObj["addTime"] = data.c.addTime;
+					arrayUserList.unshift(addUserObj);
+					docloseUser();
+					$("#tb_departments").bootstrapTable('load',arrayUserList);
+					//$('#tb_departments').bootstrapTable('refresh');
+					//console.log(data); 
+					showMsg("恭喜您，用户添加成功");
+ 					console.log('添加成功'); 
+ 				}else
+ 				{
+ 					if(data.c.errorCode=="005")
+ 					{
+ 						$("#f_msg").html("*用户名已存在"); 	
+ 					}
+ 					console.log('添加失败');
+
+ 				}
+ 			}else if(sendType == "userupdate")
+ 			{
+ 				//console.log(data);
+ 				if(data.c.flag=="1")
+ 				{
+ 					arrayUserList[edit_select_userindex] = addUserObj;
+ 					$("#tb_departments").bootstrapTable('load',arrayUserList);
+ 					console.log('更新成功'); 
+ 					docloseUser();
+ 					showMsg("恭喜您，用户修改成功");
+ 				}else
+ 				{
+ 					console.log('更新失败'); 
+ 					if(data.c.errorCode=="005")
+ 					{
+ 						$("#f_msg").html("*用户名已存在"); 	
+ 					}
+ 				}
+ 				
+ 				//for(var u_index = 0;u_index<arrayUserList.length;)
+ 				//console.log(addUserObj)
+ 				//arraytest[0].username = "test";
+				//console.log(arraytest[0].username);
+				//$("#mytable").bootstrapTable('load',arraytest);
+				
+ 			}else if(sendType == "userdel")
+ 			{
+ 				if(data.c.flag=="1")
+ 				{ 
+ 					console.log(delete_select_userindex);
+ 					
+ 					arrayUserList.splice(delete_select_userindex, 1);
+ 					$("#tb_departments").bootstrapTable('load',arrayUserList);
+ 					
+ 					//$("#tb_departments").bootstrapTable('refresh');
+ 					console.log("删除成功");
+ 					showMsg("删除成功");
+
+ 				}
+ 			}else if(sendType = "resetkey")
+ 			{
+ 				if(data.c.flag=="1")
+ 				{
+ 					showMsg("恭喜您，密码重置成功");
+ 				}
+ 			}
+ 		}
+        
+ 
+		var arrayUserList  = new Array();;
+		function setDateTable(data)
+		{   
+//			 arraytest = new Array();
+//			for(var i=0;i<500;i++)
+//			{
+//				var obj = [];
+//				obj.username = i+"姓名";
+//				obj.phone = i+"phone";
+//				obj.department = i+"部门"; 
+//				arrayUserList.push(obj);
+//			}
+			//console.log(data.c.users);
+			arrayUserList = data.c.users;
+ 			$("#tb_departments").bootstrapTable('load',arrayUserList);  
+ 			
+ 			
+ 			
+		}
+		
+
+		
+		//判断字符是否是数字
+//		function isnumStr(str)
+//		{
+//			if(isNaN(str)){//不是数字
+//				console.log('不是数字');
+//			   return true;
+//			}else{
+//			   return false;//是数字
+//			}
+//		}
+		
+		function isnull(str)
+		{
+			console.log(str);
+			if(str==''||str.indexOf(' ')!=-1){
+			    return false;
+			}
+			return true;
+		}
+		
+				
+		function sixStr(str)
+		{ 
+			if(str.length>=6&&str.length<=16)
+			{
+				//通过 
+				return true;
+			} 
+			return false;
+		}
+		
+		function checkEmail(str)
+		{
+			if(str==''||str.indexOf(' ')!=-1){ 
+				return true;
+			}
+			
+			var emailarr = str.split("@");
+			//if(emailarr[])
+			if(emailarr[0]!=undefined&&emailarr[1]!=undefined&&emailarr[1]!=""&&emailarr[0]!="")
+			{ 
+				return true;
+			} 
+			return false;
+			//console.log(emailarr[0]);
+			//console.log(emailarr[1]);
+		}
+		
+		 
+		
+		var save_state = "";
+		var addUserObj;
+		function dosaveUser()
+		{	 
+			addUserObj = new Object();
+			addUserObj["loginName"] = $("#ds_loginName").val();
+			addUserObj["workNum"] = $("#ds_workNum").val();
+			addUserObj["cardNum"] = $("#ds_cardNum").val();
+			addUserObj["name"] = $("#ds_name").val();
+			addUserObj["telphone"] = $("#ds_telphone").val();
+			addUserObj["email"] = $("#ds_email").val();
+			//addUserObj["roleId"] = selectroleId;
+			//addUserObj["deptId"] = selectdeptId;
+			addUserObj["roleId"] = $(":selected","#ds_roleId").attr("value");
+			addUserObj["deptId"] = 	$(":selected","#ds_deptId").attr("value");
+			
+			if(addUserObj["roleId"]==-1)
+			{
+				$("#f_msg").html("*请选择用户角色"); 
+				return;
+			}
+			
+			if(addUserObj["deptId"]==-1)
+			{
+				$("#f_msg").html("*请选择部门"); 
+				return;
+			}
+			
+			//sixStr(addUserObj["loginName"])
+			//isnumStr(addUserObj["loginName"].substr(0,1))
+			
+			if(addUserObj["name"].length>=2&&addUserObj["name"].length<=16)
+			{//&&sixStr(addUserObj["loginName"])&&!isNaN(addUserObj["loginName"].substr(0,1))
+				 console.log('姓名通过认证');
+			}else
+			{
+				$("#f_msg").html("*姓名规则为长度2-16字符，可输入中文或字母。"); 
+				return;
+			}
+			
+			
+			if(isnull(addUserObj["loginName"])&&sixStr(addUserObj["loginName"])&&isNaN(addUserObj["loginName"].substr(0,1)))
+			{//&&sixStr(addUserObj["loginName"])&&!isNaN(addUserObj["loginName"].substr(0,1))
+				 console.log('登录名通过认证');
+			}else
+			{
+				$("#f_msg").html("*用户名规则为长度6-16字符，可输入字母或数字组合，且数字不在首位。"); 
+				return;
+			}			
+			
+			if(sixStr(addUserObj["workNum"]))
+			{//&&sixStr(addUserObj["loginName"])&&!isNaN(addUserObj["loginName"].substr(0,1))
+				 console.log('工号通过认证');
+			}else
+			{
+				$("#f_msg").html("*工号规则为长度6-16字符，可输入字母或数字组合。"); 
+				return;
+			}			
+			
+			
+			
+			if(addUserObj["telphone"].length==11&&addUserObj["telphone"].substr(0,1)==1)
+			{//&&sixStr(addUserObj["loginName"])&&!isNaN(addUserObj["loginName"].substr(0,1))
+				 console.log('手机号码通过认证');
+			}else
+			{
+				$("#f_msg").html("*手机号码为11位字符且只为数字,首字母必须以1开头"); 
+				return;
+			}
+			
+			
+			 
+			if(checkEmail(addUserObj["email"]))
+			{//&&sixStr(addUserObj["loginName"])&&!isNaN(addUserObj["loginName"].substr(0,1))
+				 console.log('邮箱通过认证');
+			}else
+			{
+				$("#f_msg").html("*请输入正确的邮箱"); 
+				return;
+			}
+			
+			
+			$("#f_msg").html("");
+			
+			
+			
+			
+		
+
+			//addUserObj["id"] = "test";
+			//console.log(loginName);
+			
+			if(save_state=="useradd")
+			{
+				sendType = "useradd"; 
+				getJson("sys/useradd",sendBack,addUserObj);
+			}else
+			{
+				addUserObj ["id"] =  edit_select_userid;
+				console.log("test"+edit_select_userid);
+				sendType = "userupdate"; 
+				getJson("sys/userupdate",sendBack,addUserObj); 
+			}
+			
+			 
+//			return;
+//			arraytest[0].username = "test";
+//			console.log(arraytest[0].username);
+//			$("#mytable").bootstrapTable('load',arraytest); 
+		}
+		
+		function deleteUser()
+		{
+			var a= $("#mytable").bootstrapTable('getSelections');
+            		 if(a.length<=0){
+            			 alert("请选中一行")
+            		}else{
+//          			var b=JSON.stringify( a );
+//          			console.log(b);
+console.log(a);
+            		} 
+            		
+            		setpageheight();
+            		
+		}
+		
+		
+			//设置框架高度
+	function setpageheight()
+	{ 
+		var mainheight = $(window).height()-150;
+		console.log($(window).height());
+		//$("#maindiv").height(mainheight);
+		$("#mytable").height(mainheight);
+		
+				//$("#myTabContent").height(mainheight);
+
+		 
+	}
+	</script>
+</body>
+</html>

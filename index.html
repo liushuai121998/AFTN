@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!--IE Compatibility modes-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>报文系统</title>
+    <link rel="stylesheet" href="asset/lib/bootstrap/css/bootstrap.css" />
+    <!--calendar控件  -->
+    <link rel="stylesheet" href="asset/lib/calendar/jedate.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/myStyle.css">
+    
+		<link rel="stylesheet" type="text/css" href="asset/lib/xcConfirm/xcConfirm.css"/> 
+    
+    <style>
+    	.nav .open > a, .nav .open > a:hover, .nav .open > a:focus
+    	{
+    		background-color:#1A4D8B;
+    	}
+    	
+    </style>
+</head>
+
+<body>
+
+
+    <!-- Modal-loading -->
+    <div class="modal fade" tabindex="-1" role="dialog" id='myModal-loading'>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>数据加载中.....</p>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- Modal-msg -->
+    <div class="modal fade" id="myModal-msg" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">系统消息</h4>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title" id="myModalLabel" style="text-align: center;"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn  btn-primary" data-dismiss="modal">确认关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--show detail 详情显示列表  -->
+    <div class="modal web-font" id="detailShow" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">报文详情查看</h4>
+                </div>
+                <div class="modal-body">
+					<div class='list_header'></div>
+					<div class="list_content">
+						<table class='table_content table table-striped table-hover sl_table mytable-S'>
+							<tbody>
+								
+							</tbody>
+						</table>
+					</div>
+                </div>
+                <div class="modal-footer">
+                	<div class='total_num'>报文共计10条</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--main-->
+    <div class='main_warp'>
+        <!--header-->
+        <header class='main_header clearfix'>
+            <!--icon-flag-->
+            <div style='float: left;'>
+                <div class='icon_flag'>
+                    <!--<span class='glyphicon glyphicon-plane'></span>-->
+                    
+                    <i data="2" class="key-icon resetkey" style="color: #ffffff;font-size: 26px;">&#xe604;</i>
+                </div>
+                
+                <!--title-->
+                <h2 class='header_title'>机场报文系统</h2>
+            </div>
+            <!--nav-->
+            <nav class='header_nav'>
+                <ul class="nav nav-tabs main_nav">
+                    <li data-page="components/plane/index.html" class="active" data-flag='plane'>
+                        <a href="#">航班列表</a>
+                    </li>
+                    <li data-page="components/plan/index.html">
+                        <a href="#">计划列表</a>
+                    </li>
+                    <li data-page="components/weather/index.html"><a href="#">天气动态</a></li>
+                    <li data-page="components/message/index.html"><a href="#">报文列表</a></li>
+                  	<li data-page="components/statisticalcharts/index.html"><a href="#">报文统计</a></li>
+
+                    <li class='dropdown' data-page='#'>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                            	系统管理<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li data-page="components/system-manage/users.html"><a href="#">用户管理</a></li>
+                            <li data-page="components/system-manage/uac.html"><a href="#">权限管理</a></li>
+                            <li data-page="components/plan/logs.html"><a href="#">日志管理</a></li>
+                        </ul>
+                 	</li> 
+                </ul>
+            </nav>
+            <!--login info-->
+            <div class='login_info'> 
+                
+                <div class="btn-group">
+                	<span id="l_name_spane"></span>
+ 			    	<span class='glyphicon glyphicon-user login_user' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+ 			    	
+		                  <a class='glyphicon glyphicon-log-out log_out'   onclick="doOut()"></a>
+
+					  <ul class="dropdown-menu" style="left: -50px;min-width: 100%;">
+					    <li onclick="doedituser()"><a href="#">修改密码</a></li> 
+					  </ul>
+				</div>
+                
+                
+                <!--
+                <a class='log_out' href='./login.html'>退出</a>
+                -->
+            </div>
+        </header>
+        <!--content-->
+        <section>
+            <!--table-->
+            <div class="main_content" style="z-index: 10;width: 100%;">
+                <!--header  search -->
+
+                <div class="content" id="mycontent">
+
+                </div>
+            </div>
+        </section>
+
+        <!--footer-->
+        <!--
+        <footer class='main_footer'>
+            Copyright 2017 © TOPSCIENTFIC SYSTEMS INC.京 ICP 备 12004142 号
+        </footer>
+        -->
+    </div>
+   
+    <script type='text/javascript' src='asset/lib/jquery/jquery.js'></script>
+    <script src='asset/lib/calendar/jquery.jedate.js'></script>
+    <script src='asset/lib/niceScroll/jquery.nicescroll.js'></script>
+    <script src='asset/lib/base64/jquery.base64.js'></script>
+    <script src='asset/lib/nstSlider/jquery.nstSlider.js'></script>
+    <script type='text/javascript' src='asset/lib/bootstrap/js/bootstrap.js'></script>
+    <script type='text/javascript' src='js/util.js'></script>
+    <script type='text/javascript' src='js/myCommon.js'></script> 
+    
+    
+		<script src="asset/lib/xcConfirm/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+
+     <!--
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+-->
+    <script type='text/javascript'>
+    	
+  var menuMap=	{"HBLB":"components/plane/index.html",   //航班列表
+  				"JHLB":"components/plan/index.html",	//计划列表
+  				"TQLB":"components/weather/index.html",  //天气列表
+  				"BWLB":"components/message/index.html",  //报文列表
+  				"YHGL":"components/system-manage/users.html",//用户管理
+  				"QXGL":"components/system-manage/uac.html",//权限管理
+  				"RZGL":"components/system-manage/logs.html",//日志管理
+  				"TJGL":"components/statisticalcharts/index.html"};//统计管理
+    	
+    	function doedituser()
+    	{
+    		getPage('components/system-manage/edituser.html', setPage);
+    	}
+
+    	 
+        var pageEvent = new Event('pageReback');  
+        var rid = "";
+        $(function() { 
+        	
+        	//console.log(TempCache.getItem("l_name"));
+        		$("#l_name_spane").html(TempCache.getItem("l_name"));
+        		aftn_userId = TempCache.getItem("aftn_userId"); 
+ 
+            // 导航标签切换页面
+           (function() { 
+           	
+           	//console.log(arr.key1);
+         		var dataJson = parseParam(window.location.href);
+         		if(dataJson!="")
+         		{
+	         		rid = dataJson.rid.replace("#","");   
+           		}else
+           		{
+           				window.location.href = "login.html";
+           				return;
+           		}
+         		getJson("sys/menubyrole",getmenu,'{"roleId":"'+rid+'"}');
+                /*默认显示航班列表*/
+               
+//$(".content").load("components/system-manage/users1.html"); 
+                
+                // 内容区的高度
+                var $mainContent = $('.main_content')
+                var $header = $('.main_header')
+                var $footer = $('.main_footer')
+                    // $dom.height()内容区的宽度
+                $mainContent.outerHeight(document.documentElement.clientHeight - $header.outerHeight() - $footer.outerHeight())
+
+                $(window).resize(function() {
+                        $mainContent.outerHeight(document.documentElement.clientHeight - $header.outerHeight() - $footer.outerHeight())
+                    })
+                
+            })();
+        })
+        
+        
+        
+        /*setPage */  
+        function setPage(data) {
+			//document.dispatchEvent(pageEvent);//广播事件 
+			hideLoading()  
+	        //$('#mycontent').empty();
+	         $("#mycontent").remove();
+//	           <div class="content" id="mycontent">
+//
+//              </div>
+			$(".main_content").html('<div class="content" id="mycontent">'+data+'</div>');
+	        //$('#mycontent').html(data)
+	        isflag = true;
+        }
+
+        
+        function getmenu(data)
+        {
+//        	console.log(data);
+        	var menuStr = ""; 
+        	var s = data.c.menus;
+        	var classActive = "active";
+        	for(var i = 0;i<s.length;i++)
+        	{
+        		if(s[i].list.length>0)//有子菜单
+        		{
+        			menuStr += '<li class="dropdown" data-page="#"><a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">'+s[i].describe+'<b class="caret"></b></a><ul class="dropdown-menu">';
+        			for(j=0;j<s[i].list.length;j++)
+        			{
+        				var obj = s[i].list[j];
+        				//console.log(obj.code);
+        				//console.log(menuMap[obj.code]);
+        				menuStr += '<li data-page="'+menuMap[obj.code]+'"  ><a href="#">'+obj.describe+'</a></li>';
+        				//判断修改权限star
+        				if(obj.code=="YHGL")
+        				{
+        					//console.log(obj);
+        					for(var f = 0;f<obj.functions.length;f++)
+        					{
+        						if(obj.functions[f].code=="U")
+        						{
+        							$YHGL = true;
+        							//console.log('用户管理修改权限');
+        						}
+        					}
+        				}
+        				
+        				if(obj.code=="QXGL")
+        				{
+        					//console.log(obj);
+        					for(var f = 0;f<obj.functions.length;f++)
+        					{
+        						if(obj.functions[f].code=="U")
+        						{
+        							$QXGL = true;
+        							//console.log('权限管理修改权限');
+        						}
+        					}
+        				}
+        				//判断修改权限end
+        				
+        			}
+        			menuStr += "</ul></li>";
+        		}else
+        		{
+        			menuStr += '<li data-page="'+menuMap[s[i].code]+'" class="'+classActive+'"><a href="#">'+s[i].describe+'</a></li>';
+        		}
+        		
+        		if(classActive == "active")
+        		{	
+        			classActive = "";
+					
+//					getPage('components/weather/index.html', setPage)
+					//getPage('components/statisticalcharts/index.html', setPage)
+					if(menuMap[s[i].code]) {
+						getPage(menuMap[s[i].code], setPage);
+					} else {
+						var setCode = {
+							code: ''
+						}
+						if(s[i].list.length > 0) {
+							for(var h=0, len=s[i].list.length; h<len; h++) {
+//								
+								if(menuMap[s[i].list[h].code]) {
+									getPage(menuMap[s[i].list[h].code], setPage)
+									setCode.code = menuMap[s[i].list[h].code]
+									break;
+								}
+							}
+						}
+						setTimeout(function () {
+//							getPage(setCode.code, setPage)
+//							console.log($('.main_nav .dropdown ')[0])
+						}, 5000)
+					}
+        		}
+        	}
+        	$(".main_nav").html(menuStr);
+        	
+        	
+        	var $mainNav = $('.main_nav li');
+                $mainNav.click(function() { 
+                    var url = $(this).attr('data-page')   
+                    if(url!="#"&&url!=undefined)
+                    {
+                    	console.log(url);
+                    	$mainNav.removeClass('active')
+	                    $(this).addClass('active')
+	                    //var flag = $(this).attr('data-flag')
+   						// 切换时	清楚其他的定时器	
+						for(var i in saveTime) {
+							saveTime[i].timeId && clearInterval(saveTime[i].timeId)
+						}
+						
+						// 隐藏滚动条
+						$(".weather_list_content").getNiceScroll().hide()
+						$('.list_content').getNiceScroll().hide()
+						$(".cloud_runway").getNiceScroll().hide()	
+						$(".scenes_prescenes").getNiceScroll().hide()	
+						//weather_trend
+						$(".weather_trend").getNiceScroll().hide()
+						
+						
+                    	getPage(url, setPage)
+                    	//$("#mycontent").load(url,null,function(){alert("加载成功")}); 
+                    	//console.log();
+                    	if($(this).parent().hasClass("dropdown-menu"))
+                    	{
+                    		$mainNav.removeClass('active')
+	                    	$(this).addClass('active')
+                    		//$mainNav.removeClass('active')
+	                    	$(this).parent().parent().addClass('dropdown-menu-active')
+	                    	//$('.dropdown-menu li').removeClass('active') 
+                    	}else
+                    	{
+                    		$('.dropdown').removeClass('dropdown-menu-active') 
+                    	}
+                    } 
+                })
+                
+                 
+                $(".dropdown").hover( function() {
+                	//$('.dropdown-toggle').dropdown()
+                	//console.log('ccc');
+					$(".main_content").css("z-index", "-1");
+					$(".main_content").css("position", "absolute"); 
+					//$('.dropdown-toggle').dropdown('toggle');
+					}, function() { 
+						//$('.dropdown-toggle').dropdown('toggle');
+											$(".main_content").css("position", "static"); 
+
+					$(".main_content").css("z-index", "10");
+				});  
+				
+			//修改下拉菜单变成鼠标移动上去后自动弹开
+			(function($, window, undefined) {
+			    var $allDropdowns = $();
+			    $.fn.dropdownHover = function(options) {
+			        $allDropdowns = $allDropdowns.add(this.parent());
+			
+			        return this.each(function() {
+			            var $this = $(this).parent(),
+			                defaults = {
+			                    delay: 10,
+			                    instantlyCloseOthers: true
+			                },
+			                data = {
+			                    delay: $(this).data('delay'),
+			                    instantlyCloseOthers: $(this).data('close-others')
+			                },
+			                options = $.extend(true, {}, defaults, options, data),
+			                timeout;
+			            $this.hover(function() {
+			                if(options.instantlyCloseOthers === true)
+			                    $allDropdowns.removeClass('open');
+			                window.clearTimeout(timeout);
+			                $(this).addClass('open');
+			            }, function() {
+			                timeout = window.setTimeout(function() {
+			                    $this.removeClass('open');
+			                }, options.delay);
+			            });
+			        });
+			    };
+			    $('[data-hover="dropdown"]').dropdownHover();
+			})(jQuery, this);
+				
+        	
+//      	<li data-page="components/plane/index.html" class="active" >
+//                      <a href="#">航班列表</a>
+//                  </li>
+//                  <li data-page="components/plan/index.html">
+//                      <a href="#">计划列表</a>
+//                  </li>
+//                  <li data-page="components/weather/index.html"><a href="#">天气列表</a></li>
+//                  <li data-page="components/message/index.html"><a href="#">报文列表</a></li>
+//                	<li data-page="components/statisticalcharts/index.html"><a href="#">报文统计</a></li>
+//
+//                  <li class='dropdown' data-page='#'>
+//                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+//                          	系统管理<b class="caret"></b>
+//                      </a>
+//                      <ul class="dropdown-menu">
+//                          <li data-page="components/system-manage/users.html"><a href="#">用户管理</a></li>
+//                          <li data-page="components/system-manage/uac.html"><a href="#">权限管理</a></li>
+//                          <li data-page="components/plan/logs.html"><a href="#">日志管理</a></li>
+//                      </ul>
+//               	</li> 
+        }
+        
+        function doOut()
+        {
+        	getJson("sys/loginout",doOutBack,"");        	
+        }
+        
+        function doOutBack(data)
+        {
+        	console.log(data);
+        	if(data.c.flag =="1")
+        	{
+				window.location.href="login.html";
+        	}
+        }
+			
+
+    </script>
+    
+</body>
+
+</html>

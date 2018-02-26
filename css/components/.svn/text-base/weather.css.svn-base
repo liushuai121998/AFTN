@@ -1,0 +1,399 @@
+.weather_wrap {
+	color: rgb(121, 121, 121);
+}
+
+.weather_wrap , .weather_content {
+	height: 100%;
+	background: #F5F5F5;
+	position: relative;
+}
+.weather_detail {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	/*padding: 10px;*/
+	height: 100%;
+	background: #fff;
+	box-sizing: border-box;
+}
+/*头部信息*/
+.weather_header {
+	padding-top: 10px;
+	line-height: 34px;
+}
+.weather_header .search {
+	width: 200px;
+	position: relative;
+}
+.add_list_info .input-group {
+	position: relative;
+}
+.add_list_info .weather_delete_val {
+	position: absolute;
+	right: 45px;
+	top: 0;
+	z-index: 1000;
+	height: 34px;
+	line-height: 34px;
+	display: none;
+	cursor: pointer;
+}
+.weather_header .search .weather_delete_val {
+	position: absolute;
+	right: 42px;
+	top: 0;
+	z-index: 1000;
+	display: none;
+	cursor: pointer;
+}
+.weather_search {
+	float: left;
+	position: relative;
+}
+.weather_list_icon {
+	float: left;
+	margin: 0 20px;
+	height: 34px;
+	line-height: 34px;
+	cursor: pointer;
+}
+.search_code {
+	position: absolute;
+	left: 0;
+	top: 100%;
+	z-index: 1000;
+	width: calc(100% - 40px);
+	max-height: 300px;
+	overflow: auto;
+	display: none;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.search_code li {
+	padding-left: 10px;
+}
+.search_code li:hover {
+	background: #ddd;
+}
+.search_code li.active{
+	background: #BAE0F3 ;
+}
+
+/*天气列表*/
+.weather_list {
+	display: none;
+	width: 200px;
+	height: 100%;
+	float: left;
+	background: #fff;
+	margin-right: 17px;
+	box-sizing: border-box;
+	position: relative;
+	padding: 10px 0 10px 10px;
+}
+
+/*小图标*/
+.small_img {
+	position: absolute;
+	left: 40%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/*轮播图*/
+.carousel {
+	height: calc(100% - 44px);
+	background: #F5F5F5;
+	font-size: 15px;
+	/*padding: 20px 0 30px 0;*/	
+}
+.carousel .right, .carousel .left{
+	text-decoration: none;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 40px;
+	height: 40px;
+}
+.carousel .right i, .carousel .left i{
+	display: none;
+}
+.carousel .right {
+	right: 0
+}
+.carousel .left {
+	left: 0;
+}
+.carousel:hover .right i, .carousel:hover .left i{
+	display: inline;
+}
+
+/*天气状况*/
+.weather_condition {
+	margin-left: 50px;
+}
+/*添加天气列表*/
+.add_w_list {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	cursor: pointer;
+}
+
+/*添加天气列表输入框的样式*/
+.add_list_info {
+	width: 165px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	bottom: 45px;
+	display: none;
+}
+.add_list_btn {
+	background: #fff; 
+	cursor: pointer;
+}
+
+/*符合输入条件的四字码*/
+.add_airport_code {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	bottom: 79px;
+	width: 163px;
+	max-height: 114px;
+	overflow: auto;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	display: none;
+	cursor: pointer;
+	background: #fff;
+}
+.add_airport_code li {
+	/*text-align: center;*/
+	height: 19px;
+	line-height: 19px;
+	padding-left: 5px;
+}
+.add_airport_code li:hover {
+	background: #ddd;
+}
+.add_airport_code li.active{
+	background: #BAE0F3 ;
+}
+
+
+/*机场列表*/
+.weather_list_content {
+	height: calc(100% - 70px);
+	cursor: pointer;
+	overflow: auto;
+}
+.weather_list_content li {
+	padding: 10px 0;
+	line-height: 22px;
+	position: relative;
+}
+
+.weather_list_content li .template {
+	position: absolute;	
+	right: 30px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.weather_list_content li.active{
+	color: #BAE0F3;
+}
+
+/*机场列表的删除按钮*/
+.delete_airport_list {
+	margin-right: 5px;
+	float: right;
+	display: none;
+}
+/*机场四字码标题*/
+.airport_title.active {
+	color: #1B6D85;
+}
+.carousel-inner {
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	white-space: nowrap;
+}
+.carousel-inner .item {
+	height: 100%;
+	width: 100%;
+}
+.carousel-inner > .item > div > section {
+	width: 15%;
+	float: left;
+	/*margin-left: 6%;*/
+}
+
+.carousel-inner > .item > div > section span {
+	/*font-size: 12px;*/
+	font-size: 15px;
+}
+
+.carousel-inner > .active > div li {
+	/*padding: 8px 0;*/
+	font-size: 16px;
+}
+.carousel-inner > .active > div li:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.carousel-inner > .active > div li > span:first-child {
+	float: left;
+}
+.carousel-inner > .active > div li > span:last-child {
+	float: right;
+	/*max-width: 6em;*/
+} 
+
+/*观察时间*/
+.obs_time {
+	margin-right: 20px;
+	font-size: 14px;
+}
+
+
+/*天气趋势的样式*/
+.carousel-inner > .item > div > section.weather_trend {
+	margin-right: 0;
+	width: calc(56% - 34px);
+	height: 100%;
+	overflow: auto;
+	color: #999;
+	padding: 0 4%;
+}
+.carousel-inner > .item > div > section.weather_trend ul {
+	/*width: 592px;*/
+	margin: 0 auto;
+}
+.carousel-inner > .item > div > section.weather_trend ul:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.carousel-inner > .item > div > section.weather_trend.real_info {
+	color: rgb(121, 121, 121);
+}
+.weather_trend ul li {
+	width: 40%;
+	margin-top: 21px;
+}
+.weather_trend ul li:nth-of-type(odd) {
+	float: right;
+}
+.weather_trend ul li:nth-of-type(even) {
+	float: left;
+}
+
+.weather_trend ul li:nth-of-type(even) span:last-child {
+	/*width: 50%;
+	text-align: center;*/
+}
+
+.weather_trend ul li span:first-child {
+	float: left;
+}
+.carousel-inner > .item > div > section.weather_trend ul li.trend_time{
+	float: left;
+}
+.carousel-inner > .item > div > section.weather_trend ul li.trend_time span:last-child {
+	float: left;
+	width: 50%;
+	text-align: center;
+	max-width: 100%;
+}
+.weather_trend ul .trend_time{
+	width: 100%;
+}
+
+
+/*基本的天气信息*/
+.base_weather {
+	padding-bottom: 40px;
+	padding-top: 20px;
+	background: #fff;
+}
+.carousel-inner > .item > .base_weather > section {
+	width: 22%;
+}
+.carousel-inner > .item > .base_weather > section.weather_img_wrap {
+	width: 12%;
+}
+.carousel-inner > .item > .base_weather > section ul {
+	width: 217px;
+	margin: 0 auto;
+}
+.base_weather ul li {
+	margin-top: 21px;
+}
+
+/*其他的天气信息*/
+.other_weather_info {
+	margin-top: 17px;
+	height: calc(100% - 209px)
+}
+.other_weather_info section {
+	margin-right: 17px;
+	background: #fff;
+}
+/*云量跑道信息*/
+.carousel-inner > .item > div > section.cloud_runway {
+	width: 22%;
+	height: 100%;
+	text-align: center;
+	overflow: auto;
+}
+.carousel-inner > .item > div > section.cloud_runway ul {
+	width: 217px;
+	margin: 0 auto;
+}
+.cloud_runway ul li{
+	margin-top: 21px;
+	color: #999;
+}
+.carousel-inner > .item > div > section ul li span:last-child {
+	max-width: 120px;
+}
+.cloud_runway .real_info li {
+	color: rgb(121, 121, 121);
+}
+/*气象信息*/
+.carousel-inner > .item > div > section.scenes_prescenes {
+	width: 22%;
+	height: 100%;
+	overflow: auto;
+}
+.carousel-inner > .item > div > section.scenes_prescenes ul {
+	width: 217px;
+	margin: 0 auto;
+}
+.scenes_prescenes ul li {
+	margin-top: 21px;
+	color: #999;
+}
+.scenes_prescenes .real_info {
+	color: rgb(121, 121, 121);
+}
+
+/*图片*/
+.weather_img_wrap {
+	/*图片居中*/
+	/*text-align: center;*/
+	position: relative;
+}
+.weather_img{
+	position: absolute;
+}

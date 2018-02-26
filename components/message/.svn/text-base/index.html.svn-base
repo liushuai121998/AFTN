@@ -1,0 +1,236 @@
+
+<link rel="stylesheet" href="./css/components/message.css" />
+<section class='message_wrap web-font'>
+	<div class='content_header'>
+        <div class='search_wrap clearfix'>
+            <!--历史和当前-->
+            <div class='current_history'> 
+            	<select class="form-control select_cur_his">
+                    <option value="current" selected="selected">当前报文</option>
+                    <option value="history">历史报文</option>
+               </select>
+            </div>
+            <!--时间控件  -->
+            <div class="ta_date" id="div_date_demo3">
+                <div style='float: left;'><input class="form-control" id="dateStart" type="text" placeholder="开始日期"  readonly></div>
+                <div style='float: right'><input class="form-control" id="dateEnd" type="text" placeholder="结束日期"  readonly></div>
+            </div>
+            <!--搜索框  -->
+            <div class="search_form_group clearfix">
+			  <!--<div class='search input-group'>-->
+                <input type="text" class="form-control search_input" placeholder="输入筛选内容"  data-toggle="tooltip" data-placement="bottom" data-title="报文类型,流水号,文件名,报文详情">
+                <!--<div class="input-group-addon search_icon"><i class='panel-icon'>&#xe638;</i></div>-->
+              <!--</div>-->
+              <div class='delete_val'><i class='panel-icon' style='font-size: 20px;'>&#xe601;</i></div>
+			</div>
+            
+            <!--显示框  -->
+            <div class='select_wrap'>
+            	<div class="dropdown select_show">
+				  <button class="btn btn-default dropdown-toggle message_btn" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    <span class='message_type_title'>全部</span>
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu message_type" aria-labelledby="dropdownMenu1">
+				    <li><a href="#" class='active' data-val='all'>全部</a></li>
+				    <li>
+				    	<a href="#">AFTN报文列表</a>
+				    	<!--默认初始化显示AFTN报文列表-->
+				    	<div style='display: none'>
+				    		<ul class='message_type_list'>
+				    			<!--FPL,CHG,CNL,DEP,ARR,DLA,CPL,EST,PLN-->
+				    			<li data-val='FPL'><span>FPL</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li data-val='CHG'><span>CHG</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li data-val='CNL'><span>CNL</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li data-val='DEP'><span>DEP</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li data-val='ARR'><span>ARR</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li data-val='DLA'><span>DLA</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li data-val='CPL'><span>CPL</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li data-val='EST'><span>EST</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li data-val='PLN'><span>PLN</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+					    		<!--<li><label><input type="checkbox" checked/>FPL</label></li>
+					    		<li><label><input type="checkbox" checked/>CHG</label></li>
+					    		<li><label><input type="checkbox" checked/>CNL</label></li>
+					    		<li><label><input type="checkbox" checked/>DEP</label></li>
+					    		<li><label><input type="checkbox" checked/>ARR</label></li>
+					    		<li><label><input type="checkbox" checked/>DLA</label></li>
+					    		<li><label><input type="checkbox" checked/>CPL</label></li>
+					    		<li><label><input type="checkbox" checked/>EST</label></li>
+					    		<li><label><input type="checkbox" checked/>PLN</label></li>-->
+					    	</ul>
+				    	</div>
+				    </li>
+				    <li>
+				    	<a href="#" data-val='PLN_'>SITA报文列表</a>
+				    	
+				    	<div style='display: none'>
+				    		<ul class='message_type_list'>
+				    			<li data-val='PLN_'><span>PLN_</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    		</ul>
+				    	</div>
+				    </li>
+				    <!--<li role="separator" class="divider"></li>-->
+				    <li>
+				    	<a href="#">天气报文列表</a>
+				    	<div style='display: none'>
+				    		<ul class='message_type_list'>
+				    			<li class='selected_active' data-val='METAR'><span>METAR</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li class='selected_active' data-val='SPECI'><span>SPECI</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    			<li class='selected_active' data-val='TAF'><span>TAF</span><span class='selected_type'><i class='selected-icon'>&#xe62c;</i></span></li>
+				    		</ul>
+				    	</div>
+				    </li>
+				  </ul>
+				</div>
+                
+                <!-- 分页 每页显示数据量-->
+                <div class='page_show_num'>每页显示:</div>
+	            <select class="form-control select_show_data" style='display: none;'>
+	                	<option selected="selected">50</option>
+	                	<option>100</option>
+	                	<option>1000</option>
+	                	<!--<option>50</option>-->
+	                </select>    
+	        	
+                <div class='mult_filter'>
+                	<button class='btn btn-default filter_btn'>高级查询</button>
+                	<div class='filter_container'>
+                		<div class='show_term'>
+                			<span class='term_title'>条件</span>
+                			<ul class='need_term'>
+                			</ul>
+                		</div>
+                		<!--时间选段-->
+                		<div class='filter_time clearfix'>
+                			<!--报文状态-->
+                			<div class='message_status'>
+                				<span>报文状态</span>
+                				<select class='form-control message_status_sel'>
+                					<option selected disabled="disabled">-选择-</option>
+                					<option data-type='1' data-val='正确报文'>正确报文</option>
+                					<option data-type='2' data-val='未知报文'>未知报文</option>
+                					<option data-type='0' data-val='错误报文'>错误报文</option>
+                				</select>
+                				<span class='add_term' style='cursor: pointer; margin-left: 1em;' data-val='状态' data-type='status'><i class='panel-icon'>&#xe68a;</i></span>
+                			</div>
+                			<!--时间类型-->
+                			<div class='time_type'>
+                				<span>时间选段</span>
+                				<select class='form-control select_time_type' style='width: 110px;'>
+                					<option selected disabled="disabled">-选择-</option>
+                					<option value="签发" data-type='qfTime'>签发时间</option>
+                					<option value="派发" data-type='pfTime'>派发时间</option>
+                					<option value="接收" data-type='recvTime'>接收时间</option>
+                					<option value="处理" data-type='lastUpdate'>处理时间</option>
+                				</select>
+                			</div>
+                			<!--时间段-->
+                			<div class='time_range_wrap'>
+                				<!--<div class='time_range'>
+                					<div class='thumb_wrap'>
+                						<div class='start_thumb'>
+                						</div>
+                						<div class='end_thumb'>
+                						</div>
+                						<div class='decorate_thumb' style=''>
+                						</div>
+                						<span class='end_time'>23:59</span>
+                						<span class='start_time'>00:00</span>
+                					</div>
+                				</div>-->
+                				<div class='time_range'>
+                					<div class="nstSlider" data-range_min="0" data-range_max="86340000" data-cur_min="0" data-cur_max="0">
+							            <div class="bar nst-animating"></div>                   
+							            <div class="leftGrip nst-animating"></div>
+							            <div class="rightGrip nst-animating"></div>             
+							        </div>
+							        <div class="leftLabel start_time">00:00</div>
+							        <div class="rightLabel end_time">23:59</div>
+                				</div>
+                				<span class='add_term' style='float: right; cursor: pointer;' data-val='时间' data-type='time'><i class='panel-icon'>&#xe68a;</i></span>
+                			</div>
+                		</div>
+                	</div>
+                </div>
+                <div class='search_btn'>
+                	<button class='btn btn-default main_btn'>确定</button>
+                </div>
+                <div  style='margin-left: 15px;float: left;'>
+                	<button class='btn btn-default reset_btn'>重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='message_content common_table'>
+        <div class='message_list_wrap'>
+        	<div class='list_header'>
+				
+	        </div>
+	        <div class="list_content">
+	        	<table class='table_content table table-striped table-hover sl_table mytable-S'>
+	        		<tbody></tbody>
+	        	</table>
+	        </div>
+        </div>
+        <!--历史航班 分页功能-->
+	        <div class='paging' style='display:none'>
+	        	<span style='float: left'>页数:</span>
+	        	<nav>
+				  <ul class="pagination">
+				    <li class="disabled prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				    <!--<li class="active"></li>
+				    <li></li>-->
+				    <li class='next'>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+    				</li>
+				  </ul>
+				</nav>
+				<button	class='btn btn-default last_page' style='float: left'>最后一页</button>
+				<span style='float: left'>总共<span class='page_num'></span>页</span>
+				<div class='to_page'>
+					<span>第</span><input type="text" class='form-control page_input'/><span>页</span>
+				</div>
+	        </div>
+        <div class="message_detail">
+        	<div class='detail_title'>报文详情</div>
+        	<div class='detail_content'>
+        		
+        	</div>
+        </div>
+    </div>
+</section>
+<script>
+
+var start = {
+    format: 'YYYY-MM-DD',
+    minDate: '1888-06-16', //设定最小日期为当前日期
+//  isinitVal:true,
+    festival:true,
+    ishmsVal:false,
+    maxDate: $.nowDate({DD:0}), //最大日期
+    choosefun: function(elem, val, date){
+        end.minDate = date; //开始日选好后，重置结束日的最小日期
+        endDates();
+    }
+};
+var end = {
+    format: 'YYYY-MM-DD',
+    minDate: $.nowDate({DD:0}), //设定最小日期为当前日期
+    festival:true,
+    maxDate: '2099-06-16', //最大日期
+    choosefun: function(elem, val, date){
+        start.maxDate = date; //将结束日的初始值设定为开始日的最大日期
+    }
+};
+//这里是日期联动的关键        
+function endDates() {
+    //将结束日期的事件改成 false 即可
+    end.trigger = false;
+    $("#dateEnd").jeDate(end);
+}
+$('#dateStart').jeDate(start);
+$('#dateEnd').jeDate(end);
+</script>
+<script type='text/javascript' src='./js/components/message.js'></script>

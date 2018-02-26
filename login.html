@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="asset/lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/login.css" />
+
+        <script type='text/javascript' src='asset/lib/jquery/jquery.js'></script> 
+                    <script type='text/javascript' src='js/util.js'></script> 
+<style>
+	html,
+body {
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+    background: #2F5B93;
+}
+</style>
+</head>
+
+<body>
+    <div class='login_wrap'>
+        <div class='login_title'>
+            报文处理系统
+        </div>
+        <div class='form_wrap'>
+            <div class='form_title'>
+                请输入用户名和密码
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon1"></span>
+                <input id="uname" type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-lock" id="basic-addon2"></span>
+                <input id="pwd" type="password" class="form-control" placeholder="密码" aria-describedby="basic-addon2">
+            </div>
+            <div class="login_btn">
+                <button onclick="dologin()" type="button" class='btn btn-primary'>登录</button>
+                
+            </div>
+          
+        </div>
+          <h4 id="msg_title" style="text-align: center;padding-top: 20px;color: red;"></h4>
+    </div>
+
+    <script>
+    	function dologin()
+    	{
+    		if($("#uname").val()=="")
+    		{
+    			$("#msg_title").html("请输入用户名");
+    			return;
+    		}
+    		if($("#pwd").val()=="")
+    		{
+    			$("#msg_title").html("请输入密码");
+    			return;
+    		}
+    		var loginStr = "";
+    		loginStr = '{"loginName":"'+$("#uname").val()+'","password":"'+$("#pwd").val()+'"}';
+    	   loginjson("sys/login",sendBack,loginStr);
+    	}
+    	
+    	function sendBack(data)
+    	{
+//  		console.log(data.c.user.loginName); 
+//  		return;
+
+    		if(data.c.flag=="1")
+    		{
+    			TempCache.setItem("l_name",data.c.user.loginName);
+    			console.log(data);
+    			//return;
+    			TempCache.setItem("aftn_userId",data.c.user.id); 
+    			window.location.href = "index.html?rid="+data.c.user.roleId;
+    		}else{
+    			   	$("#msg_title").html("账号或密码错误");
+    		}
+    	}
+    	
+    	function loginjson(url, callback, param) {
+    		$.ajax({
+		        url: serviceUrl + url,
+		        data: param.toString(),
+		        type: "post",
+		        success: function(dataJson) { 
+		            callback(dataJson);
+		        },
+		        error: function() {
+		        	console.log('error') 
+		        }
+		    });
+		}
+
+    </script>
+</body>
+
+</html>

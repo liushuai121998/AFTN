@@ -1,0 +1,199 @@
+
+<link rel="stylesheet" href="./css/components/plane.css">
+<section class='plane_wrap web-font'>
+    <!--search-->
+    <div class='content_header'>
+        <div class='search_wrap clearfix'>
+            <!--历史和当前-->
+            <div class='current_history'> 
+            	<select class="form-control select_cur_his">
+                    <option value="current" selected="selected">当前计划</option>
+                    <option value="history">历史计划</option>
+               </select>
+            </div>
+            <!--时间控件  -->
+            <div class="ta_date" id="div_date_demo3">
+                <div style='float: left;'><input class="form-control" id="dateStart" type="text" placeholder="开始日期"  readonly></div>
+                <div style='float: right'><input class="form-control" id="dateEnd" type="text" placeholder="结束日期"  readonly></div>
+            </div>
+            <!--搜索框  -->
+            <div class="search_form_group clearfix">
+			  <!--<div class='search input-group'>-->
+                <input type="text" class="form-control search_input" placeholder="输入筛选内容" data-toggle="tooltip" data-placement="bottom" data-title="航班号,起飞机场,落地机场,机号, 机型,备降机场">
+                <!--<div class="input-group-addon search_icon"><i class='panel-icon'>&#xe638;</i></div>-->
+              <!--</div>-->
+              <div class='delete_val'><i class='panel-icon' style='font-size: 20px;'>&#xe601;</i></div>
+			</div>
+            
+            <!--显示框  -->
+            <div class='select_wrap'>
+                <!-- 分页 每页显示数据量-->
+                <div class='page_show_num'>每页显示:</div>
+	            <select class="form-control select_show_data" style='display: none;'>
+	                	<option selected="selected">50</option>
+	                	<option>100</option>
+	                	<option>1000</option>
+	                	<!--<option>50</option>-->
+	            </select>
+	            <div class='mult_filter'>
+                	<button class='btn btn-default filter_btn'>高级查询</button>
+                	<div class='filter_container'>
+                		<div class='show_term'>
+                			<span class='term_title'>条件</span>
+                			<ul class='need_term'>
+                			</ul>
+                		</div>
+                		<div class='filter_term'>
+                			<ul>
+                				<li>
+                					<span>起飞机场</span>
+                					<span class='add_term' style='float: right; cursor: pointer;' data-val='起飞' data-type='orgnAirPort'><i class='panel-icon'>&#xe68a;</i></span>
+                					<div class='term_input'>
+                						<input type="text" class='form-control' data-flag='airport' placeholder="三字码"/>
+                						<ul class='option'>
+                						</ul>
+                					</div>
+                				</li>
+                				<li>
+                					<span>落地机场</span>
+                					<span class='add_term' style='float: right; cursor: pointer;' data-val='落地' data-type='destAirPort'><i class='panel-icon'>&#xe68a;</i></span>
+                					<div class='term_input'>
+                						<input type="text" class='form-control' data-flag='airport' placeholder="三字码"/>
+                						<ul class='option'>
+                						</ul>
+                					</div>
+                				</li>
+                				<li>
+                					<span>机型</span>
+                					<span class='add_term' style='float: right; cursor: pointer;' data-val='机型' data-type='acType'><i class='panel-icon'>&#xe68a;</i></span>
+                					<div class='term_input'>
+                						<input type="text" class='form-control' data-flag="type" placeholder="A123"/>
+                						<span style='color: red; display: none; position: absolute; left: 140%; top: 0; white-space: nowrap;' class='valid_input'>输入不合法</span>
+                					</div>
+                				</li>
+                			</ul>
+                		</div>
+                		<!--时间选段-->
+                		<div class='filter_time clearfix'>
+                			<!--时间类型-->
+                			<div class='time_type'>
+                				<span>时间选段</span>
+                				<select name="" id="" class='form-control select_time_type'>
+                					<option selected disabled="disabled" val=''>-选择-</option>
+                					<option value="计起" data-type='std'>计划起飞</option>
+                					<option value="计到" data-type='sta'>计划到达</option>
+                				</select>
+                			</div>
+                			<!--时间段-->
+                			<div class='time_range_wrap'>
+                				<!--<div class='time_range'>
+                					<div class='thumb_wrap'>
+                						<div class='start_thumb'>
+                						</div>
+                						<div class='end_thumb'>
+                						</div>
+                						<div class='decorate_thumb' style=''>
+                						</div>
+                						<span class='end_time'>23:59</span>
+                						<span class='start_time'>00:00</span>
+                					</div>
+                				</div>-->
+                				<div class='time_range'>
+                					<div class="nstSlider" data-range_min="0" data-range_max="86340000" data-cur_min="0" data-cur_max="0">
+							            <div class="bar"></div>                   
+							            <div class="leftGrip"></div>             
+							            <div class="rightGrip"></div>             
+							        </div>
+							        <div class="leftLabel start_time">00:00</div>
+							        <div class="rightLabel end_time">23:59</div>
+                				</div>
+                				<span class='add_term' style='float: right; cursor: pointer;' data-val='时间' data-type='time'><i class='panel-icon'>&#xe68a;</i></span>
+								
+                			</div>
+                			
+                		</div>
+                	</div>
+                </div>
+
+                <div class='search_btn'>
+                	<button class='btn btn-default main_btn'>确定</button>
+                </div>
+                <div  style='margin-left: 15px;float: left;'>
+                	<button class='btn btn-default reset_btn'>重置</button>
+                </div>
+                <!--<div style='float: left; margin-left: 15px;'>
+                	<button class='btn btn-default mock_add'>居中</button>
+                </div>-->
+                
+            </div>
+        </div>
+    </div>
+    <div class='plane_content common_table'>
+        <div class='plane_list_wrap plan_list_wrap'>
+        	<div class='list_header'>
+
+	        </div>
+	        <div class="list_content">
+				<table class='table_content table table-striped table-hover sl_table mytable-S'>
+						<tbody></tbody>
+					</table>
+	        </div>
+	        
+        </div>
+        <!--历史航班 分页功能-->
+	        <div class='paging' style='display:none'>
+	        	<span style='float: left'>页数:</span>
+	        	<nav>
+				  <ul class="pagination">
+				    <li class="disabled prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				    <!--<li class="active"></li>
+				    <li></li>-->
+				    <li class='next'>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+    				</li>
+				  </ul>
+				</nav>
+				<button	class='btn btn-default last_page' style='float: left'>最后一页</button>
+				<span style='float: left'>总共<span class='page_num'></span>页</span>
+				<div class='to_page'>
+					<span>第</span><input type="text" class='form-control page_input'/><span>页</span>
+				</div>
+	        </div>
+    </div>
+</section>
+<script>
+
+var start = {
+    format: 'YYYY-MM-DD',
+    minDate: '1888-06-16', //设定最小日期为当前日期
+//  isinitVal:true,
+    festival:true,
+    ishmsVal:false,
+    maxDate: $.nowDate({DD:0}), //最大日期
+    choosefun: function(elem, val, date){
+        end.minDate = date; //开始日选好后，重置结束日的最小日期
+        endDates();
+    }
+};
+var end = {
+    format: 'YYYY-MM-DD',
+    minDate: $.nowDate({DD:0}), //设定最小日期为当前日期
+    festival:true,
+    maxDate: '2099-06-16', //最大日期
+    choosefun: function(elem, val, date){
+        start.maxDate = date; //将结束日的初始值设定为开始日的最大日期
+    }
+};
+//这里是日期联动的关键        
+function endDates() {
+    //将结束日期的事件改成 false 即可
+    end.trigger = false;
+    $("#dateEnd").jeDate(end);
+}
+$('#dateStart').jeDate(start);
+$('#dateEnd').jeDate(end);
+
+</script>
+<script type='text/javascript' src='./js/components/plan.js'></script>

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="asset/lib/echarts/echarts.simple.min.js"></script>
+		<style>
+			.panel-body
+			{
+				padding: 0px;
+			}
+			.span_count
+			{
+				
+				font-size: 26px;
+				padding: 10px 0 0 30px;
+				/*display:block;*/
+				font-weight: bold;
+				width: 50%;
+				/*position:absolute;*/
+			}
+			.span_time
+			{ 
+				padding: 0px 0 0 30px;
+				/*display:block;*/
+				font-weight: bold;
+				width: 50%;
+				/*position:absolute;*/
+			}
+			 
+			.mypanelall p
+			{
+				color: #ffffff;
+					padding-top: 2%;
+			}
+			 
+			
+			
+			
+			.container-fluid
+			{
+				padding-left: 0px;
+				padding-right:0px;	
+			}
+			
+			.right_active{
+				background-color: #ffffff !important;
+			}
+			
+			/*.right_btn
+			{
+				background-color: #F5F5F5;
+				text-align: center;
+				border: none;
+				height: 100px;
+				vertical-align: middle;
+				line-height:100px;
+				-moz-user-select: none;
+				 cursor:pointer;
+			}*/
+			
+	 
+			
+			.rightpanel
+			{
+				position: absolute;  
+	            width: 35px;   
+	            background: #FFF;  
+	            z-index: 1;  
+	            float: right; 
+	            right: 4px;
+	         border: none;
+			}
+	 		
+	 		.leftpanel
+	 		{
+	 			cursor:pointer;
+	 			width: 100%;
+	 			height: 19%;
+	 		}
+	 		
+	 		.charttitle
+	 		{
+	 			float: left;
+	 			margin: 30px; 
+	 			position:absolute;
+	 			color: #929292;
+	 		}
+			
+		</style>
+	</head>
+	<body>
+		<!--
+		<div class="rightpanel"> 
+			<div class="right_btn right_active ondate_c" id="dd_c">日</div>
+			<div class="right_btn ondate_c" id="mm_c">月</div> 
+		</div>
+		<div class="rightpanel"  style="z-index: -1;"> 
+			<div class="right_btn"  id="r_d_time"  ></div> 
+			<div class="right_btn"  id="r_m_time"  ></div> 
+		</div>
+		-->
+			<div class="container-fluid" style="height: 100%;background: #F5F5F5;">
+			 
+			  <div id="toolbar" class="btn-group" style="background: #ffffff;width: 100%;margin-bottom: 10px;" >
+	           <div class="btn-group">
+				  <select id="tj_type" class="form-control">
+	                    <option value="d">按日统计</option>    
+						<option value="m">按月统计</option>
+	              </select>
+				</div>
+				
+				 <div class="ta_date" >
+	                <div id="a_dd" style='float: left;padding-left: 20px;'><input style="width: 160px;text-align: center;" class="form-control" id="r_d_time" type="text" placeholder="开始日期"  readonly></div>
+	                <div id="a_mm" style='float: right;padding-left: 20px;display: none;'><input style="width: 160px;text-align: center;" class="form-control" id="r_m_time" type="text" placeholder="结束日期"  readonly></div>
+	              </div>
+	              
+	              <span id="nowtimeshow" style=" float: right;color: #00B8EC;padding: 10px !important;"></span>
+              </div>
+			
+			<div class="row"  style="height: 47%;">
+			  <div class="col-md-4" style="height: 100% ;">
+			  	<div id="myTabContent" class="tab-content" style="height: 100% ;">
+					<div class="tab-pane fade in active l_p_div" id="l_p_1" style="height: 100% ;"> 
+						<div class="panel panel-default" style="height: 100% ;"> 
+					  		<div class="panel-body mypanelall" style="height: 100% ;">
+					    		<div class="leftpanel" style=" background-color: #84E16F;"> 
+					    			<p><span id="bw_count"  class="span_count">0</span> 条</p>
+					    			<p><span  class="span_time"></span> 报文总数</p> 
+					    		</div>
+					    		<div  class="leftpanel"  style=" background-color: #00A8D7;margin-top:  1.4%"> 
+					    			<p><span id="aftn_count" class="span_count">0</span> 条</p>
+					    			<p><span  class="span_time"></span> AFTN报文总数</p>
+					    		</div>
+					    		<div  class="leftpanel" style="background-color: #EEB035;margin-top:  1.4%">
+					    			<p><span id="weather_count" class="span_count">0</span> 条</p>
+					    			<p><span  class="span_time"></span> 天气报文总数</p>
+					    		</div>
+					    		<div  class="leftpanel" style="background-color: #EF7E7A;margin-top:  1.4%">
+					    			<p><span id="totalSita_count"   class="span_count">0</span> 条</p>
+					    			<p><span  class="span_time"></span> SITA报文总数</p>
+					    		</div>
+					    		<div  class="leftpanel" style="background-color: #E4A9C5;margin-top:  1.4%">
+					    			<p><span id="other_count"   class="span_count">0</span> 条</p>
+					    			<p><span  class="span_time"></span> 其他报文总数</p>
+					    		</div>
+					  		</div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="l_p_2" style="height: 100% ;"> 
+						<div class="panel panel-default" style="height: 100% ;"> 
+							<div class="panel panel-default" style="height: 100% ;">
+				  				<span class="charttitle" >报文总数统计</span>
+		 					  		<div class="panel-body " style="height: 100% ;">
+							    		<div id="pie3" style="width: 100%;height: 100%;"></div>
+							  		</div>
+							</div>	  
+						</div>
+					</div> 
+				</div>
+			  		
+				</div>
+				
+		  		<div class="col-md-4" style="height: 100% ;">
+		  			<div class="panel panel-default" style="height: 100% ;">
+		  				<span class="charttitle"  >AFTN报</span>
+ 					  		<div class="panel-body" style="height: 100% ;">
+					    		<div id="pie1" style="width: 100%;height: 100%;"></div>
+					  		</div>
+					</div>	  			
+		  		</div>
+		  		
+		  		<div class="col-md-4" style="height: 100% ;">
+		  			<div class="panel panel-default" style="height: 100% ;">
+		  				<span class="charttitle">天气报</span>
+ 					  		<div class="panel-body" style="height: 100% ;">
+					    			<div id="pie2" style="width: 100%;height: 100%;"></div>
+					  		</div>
+					</div>	  			
+		  		</div>
+  		
+			</div>
+			
+			<div class="row"  style="height: 48%;margin-top: 1%;">
+				<div class="col-md-12" style="height: 100% ;">
+					<div id="myTabContent1" class="tab-content" style="height: 100% ;">
+						<div class="tab_d_p tab-pane fade in active" id="d_p_1" style="height: 100% ;"> 
+				  			<div class="panel panel-default" style="height: 100% ;">
+		  					  		<div class="panel-body" style="height: 100% ;">
+							    			<div id="linex" style="width: 100%;height: 100%;"></div>
+							  		</div>
+							</div>
+						</div>
+						<div class="tab_d_p tab-pane fade " id="d_p_2" style="height: 100% ;"> 
+						
+
+				  			<div class="panel panel-default" style="height: 100% ;">
+		  					  		<div class="panel-body" style="height: 100% ;width: 100%;">
+							    			<div id="a_line" style="width: 50%;height: 100%; float: left;"></div>
+							    			<div id="t_line" style="width: 50%;height: 100%; float: right;"></div>
+							  		</div>
+							</div>
+								<div id="rebacktj" style="position: absolute;right:50px;top: 5px;cursor:pointer;color: #929292;"></div>
+						</div>
+					</div>	
+		  		</div>
+		 	</div>
+		</div>
+		
+
+
+
+		
+		    
+		<script type="text/javascript"> 
+		
+		
+		    $('#tj_type').change(function(e){
+    	 
+                if($(":selected","#tj_type").attr("value")=="d")//按月
+                {
+                	$("#a_dd").show();
+                	$("#a_mm").hide();              	 
+                	
+                }else
+                {
+                	$("#a_dd").hide();
+                	$("#a_mm").show();    
+                } 
+	 })
+		
+		
+		// 基于准备好的dom，初始化echarts实例
+        var mypie1 = echarts.init(document.getElementById('pie1'));
+        var mypie2 = echarts.init(document.getElementById('pie2'));
+
+        var mylinex1 = echarts.init(document.getElementById('linex'));
+        
+        
+		$(function () {			
+			getJson("statistics/message",getChartData,''); 
+		});
+		
+		var allobj ;
+		var nowdateTime;
+		function getChartData(data)
+		{
+			//console.log(data);
+			
+			if(data.c.statistic==undefined)
+			{
+				showMsg("您查询的日期没有数据...");
+				return;
+			}
+			
+			
+			$("#nowtimeshow").html("当前统计日期:"+data.c.statistic.time);
+			
+			allobj = data.c.statistic;
+			
+			
+			
+			setInit(allobj);
+			
+			if(ishfmb_d)
+			{
+				nowdateTime = data.c.statistic.time;
+				$("#rebacktj").html("< "+ nowdateTime+"报文统计");  
+			}
+			//allobj.total //报文总数
+		}
+		
+		//该方法是为了在下面柱图点击时候，左上角不切换切换饼图而存在
+		function setpie3todo()
+		{
+			//console.log(mypie3);
+			if(mypie3!=undefined)
+			{	 
+	         // 指定图表的配置项和数据  
+			option_pie3 = {
+		    tooltip: {
+		        trigger: 'item',
+		        formatter: "{a} <br/>{b}: {c} ({d}%)"
+		    },
+		       legend: { 
+		        orient: 'horizontal',
+		        y: 'bottom',
+		        data:['SITA','天气','AFTN','其他']
+		    },
+		        color:['#84CAD4','#F7D79A','#F07F7B','#E4A9C5'],
+		    	series: [
+		        {
+		            name:'',
+		            type:'pie',  
+		             radius: ['45%', '70%'],
+//		            avoidLabelOverlap: false,
+//		            label: {
+//		                normal: { 
+//		                    position: 'inner'
+//		                },
+//		                emphasis: {
+//		                    show: true,
+//		                    textStyle: {
+//		                        fontSize: '12',
+//		                        fontWeight: 'bold'
+//		                    }
+//		                }
+//		            },
+//		            labelLine: {
+//		                normal: {
+//		                    show: false
+//		                }
+//		            },
+		            itemStyle:{
+		            			normal:{
+		                                label:{ 
+		                                   show: true, 
+		                                   formatter: ' {c} ' //{b} :  ({d}%)
+		                                }, 
+		                                labelLine :{show:true}
+		                            } 
+		                        } ,
+		            data:[            
+		                {value:allobj.totalAftn, name:'AFTN'},
+		                {value:allobj.totalWeather, name:'天气'},
+		                {value:allobj.totalSita, name:'SITA'},
+		                {value:allobj.totalOther, name:'其他'},
+		            ]
+		        }
+		    ]
+		};
+			        
+			        mypie3.setOption(option_pie3);
+		}
+		}
+		
+		
+
+		
+		var ishfmb_d = true;
+		function setInit(data)
+		{
+			
+	        
+	        //下面需要设置第一个面板显示 
+	        if(ishfmb_d)
+	        {
+	        	//左上角首先需要设置面板显示
+				//$('.l_p_div').removeClass('in active')
+		        //$("#l_p_1").addClass('in active')
+		        //console.log('zxxx');
+		        $("#l_p_1").addClass('in active')
+				$('#l_p_2').removeClass('in active')
+	        
+	        	//$('.tab_d_p').removeClass('in active')
+	        	$('#d_p_2').removeClass('in active')
+	        	$("#d_p_1").addClass('in active') 
+	        }
+			
+	        
+	        
+	        
+	        setpie3todo();
+	        
+	        //初始化左边面板
+	        var obj = data; 
+	        $("#bw_count").html(obj.total);
+	       	$("#aftn_count").html(obj.totalAftn);
+	       	$("#weather_count").html(obj.totalWeather);
+	       	$("#totalSita_count").html(obj.totalSita);
+	       	$("#other_count").html(obj.totalOther);
+	       	
+	       	//初始化上面2个饼图
+	       	initPies(obj.aftn,obj.weather);
+	       	
+	       	//初始化下面的柱图
+	       	initLine(obj.dates); 
+		}
+		
+		
+		var o_xAxis = [];
+		var success_data = [];
+		var error_data = [];
+		function initLine(data)
+		{
+			o_xAxis = [];
+			success_data = [];
+			error_data = [];
+			for(var i = 0;i<data.length;i++)
+			{
+				o_xAxis.push(data[i].time);
+				success_data.push(data[i].totalSuccess);
+				error_data.push(data[i].totalError); 
+			}
+			
+			//console.log(success_data);
+			//console.log(error_data);
+			
+			optionlinex = {
+			    tooltip: {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'cross',
+			            crossStyle: {
+			                color: '#999'
+			            }
+			        },formatter: function(params) {
+            var result = params[0].name+'<br>';
+            params.forEach(function(item) {
+            	//console.log(item);
+            	if(item.componentSubType!='bar'){return;}
+                  result += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>';
+                if(parseFloat(item.data)>=0){
+                    result +=item.seriesName+": "+ item.data+"<br>"
+                }else if(parseFloat(item.data)<0){
+                    result +=item.seriesName+": "+ item.data+"<br>"
+                }
+
+            });
+
+                return result;
+        },
+			    },
+			    
+ 
+			    
+			    
+			    /*
+			    toolbox: {
+			        feature: {
+			            dataView: {show: true, readOnly: false},
+			            magicType: {show: true, type: ['line', 'bar']},
+			            restore: {show: true},
+			            saveAsImage: {show: true}
+			        }
+			    },
+			    */
+			    legend: {
+			        data:['正确报文数量','错误报文数量','正确报文量曲线','错误报文量曲线']
+			 
+			    },
+			    xAxis: [
+			        {
+			            type: 'category',
+			            data: o_xAxis,
+			            axisPointer: {
+			                type: 'shadow'
+			            },axisLabel : {
+formatter: function(value)
+{
+return value.substr(5,value.length);
+}
+}, 
+			        }
+			    ],
+			    yAxis: [
+			        {
+			            type: 'value',
+			            name: '',//Y轴名称
+			            min: 0,  
+			            axisLabel: {
+			                formatter: '{value}'
+			            }
+			        }
+			//      ,
+			//      {
+			//          type: 'value',
+			//          name: '温度',
+			//          min: 0,
+			//          max: 25,
+			//          interval: 5,
+			//          axisLabel: {
+			//              formatter: '{value} °C'
+			//          }
+			//        }
+			    ],
+			    series: [
+			           
+			        {
+			        	stack: '报文', 
+			            name:'错误报文数量',
+			            type:'bar',
+			            data:error_data,
+			            itemStyle:{
+			                normal:{color:'#EF7F7D'}
+			            }
+			        },
+			        {
+			        	stack: '报文', 
+			            name:'正确报文数量',
+			            type:'bar',
+			            data:success_data,            
+			            itemStyle:{
+			                normal:{color:'#A9EA9A'}
+			            }
+			        },   
+			        { 
+			        	smooth:true,  //曲线
+			            name:'正确报文量曲线',
+			            type:'line',            
+			            data:success_data,
+			            itemStyle:{
+			                normal:{color:'#32BBDD'}
+			            }
+			        },
+			        { 
+			        	smooth:true,  //曲线
+			            name:'错误报文量曲线',
+			            type:'line',            
+			            data:error_data,
+			            itemStyle:{
+			                normal:{color:'#FF360E'}
+			            }
+			        }
+			        
+			        
+			        
+			    ]
+			};
+			
+			
+			 
+        mylinex1.setOption(optionlinex);
+
+
+		}
+		
+		function initPies(aftn,weather)
+		{
+			
+
+        // 指定图表的配置项和数据  
+	option_pie1 = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+       legend: { 
+        orient: 'horizontal',
+        y: 'bottom',
+        data:['ARR','CHG','CNL','CPL','DEP','DLA','EST','FPL','PLN']
+    },
+        color:['#7CCAF0', '#D27BEE','#F07F7B','#EEB035','#7AEFA1','#84CAD4','#F7D79A','#E4A9C5','#00A8D7'],
+    	series: [
+        {
+            name:'',
+            type:'pie',  
+            radius: ['45%', '68%'],
+//            avoidLabelOverlap: false,
+//          label: {
+//              normal: { 
+//                  position: 'inner'
+//              },
+//              emphasis: {
+//                  show: true,
+//                  textStyle: {
+//                      fontSize: '12',
+//                      fontWeight: 'bold'
+//                  }
+//              }
+//          },
+//          labelLine: {
+//              normal: {
+//                  show: false
+//              }
+//          },
+            itemStyle:{
+            			normal:{
+                                label:{ 
+                                   show: true, 
+                                   formatter: ' {c} ' //{b} :  ({d}%)
+                                }, 
+                                labelLine :{show:true}
+                            } 
+                        } ,
+            data:[    
+                {value:aftn.arr, name:'ARR'},
+                {value:aftn.chg, name:'CHG'},
+                {value:aftn.cnl, name:'CNL'},
+                {value:aftn.cpl, name:'CPL'},
+                {value:aftn.dep, name:'DEP'},
+                {value:aftn.dla, name:'DLA'},
+                {value:aftn.est, name:'EST'},
+                {value:aftn.fpl, name:'FPL'},
+                {value:aftn.pln, name:'PLN'},
+            ]
+        }
+    ]
+};
+
+
+
+        // 指定图表的配置项和数据  
+option_pie2 = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+       legend: { 
+        orient: 'horizontal',
+        y: 'bottom',
+        data:['METAR','SPECI','TAF']  
+    },
+        color:['#7CCAF0', '#D27BEE','#F07F7B','#EEB035','#7AEFA1'],
+    	series: [
+        {
+            name:'',
+            type:'pie',  
+            radius: ['45%', '70%'],
+//            avoidLabelOverlap: false,
+//          label: {
+//              normal: { 
+//                  position: 'inner'
+//              },
+//              emphasis: {
+//                  show: true,
+//                  textStyle: {
+//                      fontSize: '12',
+//                      fontWeight: 'bold'
+//                  }
+//              }
+//          },
+//          labelLine: {
+//              normal: {
+//                  show: false
+//              }
+//          },
+            itemStyle:{
+            			normal:{
+                                label:{ 
+                                   show: true, 
+                                   formatter: ' {c} ' //{b} :  ({d}%)
+                                }, 
+                                labelLine :{show:true}
+                            } 
+                        } ,
+            data:[    
+                {value:weather.metar, name:'METAR'},
+                {value:weather.speci, name:'SPECI'},
+                {value:weather.taf, name:'TAF'} 
+            ]
+        }
+    ]
+};
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        mypie1.setOption(option_pie1);
+        mypie2.setOption(option_pie2);       
+        
+
+		}
+		
+		
+		
+		
+		
+		
+		var isinit = false;
+		var mypie3;
+		$(".leftpanel").click(function() 
+		{
+			$('.l_p_div').removeClass('in active')
+	        $("#l_p_2").addClass('in active') 
+	        mypie3 = echarts.init(document.getElementById('pie3'));
+	        
+	        setpie3todo();
+	        
+	        mypie3.on('click',  function eConsole(param) {
+	        	//mypie3.removeEventListener("click", eConsole, false);  //有效！
+				//console.log('fh'); 
+				mypie3.off("click", eConsole);//返回以后 解绑事件
+				//$('.l_p_div').removeClass('in active')
+				$("#l_p_1").addClass('in active')
+				$('#l_p_2').removeClass('in active')
+				
+			});
+		})
+		
+		
+		
+		$("#r_d_time").jeDate({
+		    isinitVal:true,
+		    //festival:true,
+		    //ishmsVal:false,
+		    minDate: '2016-06-16',
+		   	maxDate: $.nowDate({DD:0}), //最大日期
+		    format:"YYYY-MM-DD",
+		    zIndex:3000,
+		    choosefun:function(val) {
+		    	console.log(val[0].value);
+		    	doSearchTime("D",val[0].value);
+		    },  //选中日期后的回调 
+       		okfun:function(val) {
+       			doSearchTime("D",val[0].value);
+       		}       //点击确定后的回调
+		});
+		
+		$("#r_m_time").jeDate({
+			    isinitVal:true,
+			    //festival:true,
+			    ishmsVal:false,
+			    minDate: '2016-06-16 23:59:59',
+			    maxDate: $.nowDate({DD:0}),
+			    format:"YYYY-MM",
+			    zIndex:3000,
+			    choosefun:function(val) {
+		    	//var nowtime = val[0].textContent;
+		    		doSearchTime("M",val[0].value);
+			    },  //选中日期后的回调 
+	       		okfun:function(val) {
+	       			doSearchTime("M",val[0].value);
+	       		}       //点击确定后的回调
+		}); 
+		
+		function doSearchTime(type,time)
+		{
+			ishfmb_d  = true;
+			if(type=="D")
+			{
+				//按天查询 
+				getJson("statistics/message",getChartData,'{"time":"'+time+'"}'); 
+			}else
+			{
+				//按月查询
+				getJson("statistics/message",getChartData,'{"time":"'+time+'"}');  
+			}
+		}
+		
+			 
+                $('.ondate_c').click(function() { 
+                	//console.log($(this)[0].id); 
+                    //$('.right_btn').removeClass('right_active')
+	                //$(this).addClass('right_active')
+	                if($(this)[0].id=="dd_c")
+	                {
+	            		$("#r_d_time").click();
+	                }else
+	                {
+	                	$("#r_m_time").click();
+	                }
+                })
+			
+//     	mylinex1.on(echarts.config.EVENT.CLICK, eConsole0017); 
+//
+//       
+//		function eConsole0017(param) { 
+//			console.log(param); 
+//		}
+
+mylinex1.on('click',  function eConsole(param) {
+//这个params可以获取你要的饼图中的当前点击的项的参数
+//console.log(param.name); 
+
+//console.log(param.seriesName); 
+
+
+
+			getJson("statistics/messagebydate",getchangeData,'{"time":"'+param.name+'"}'); 
+
+
+			//$('.tab_d_p').removeClass('in active')
+			$("#d_p_1").removeClass('in active')
+	          $("#d_p_2").addClass('in active') 
+	                //$("#rebacktj").html("< 8月24日报文统计"); 
+	            
+});
+
+
+    		$("#rebacktj").click(function() { 
+    			
+				$('#d_p_2').removeClass('in active')
+				$("#d_p_1").addClass('in active')  
+				//console.log('{"time":"'+nowdateTime+'"}');
+				ishfmb_d = false;
+				getJson("statistics/message",getChartData,'{"time":"'+nowdateTime+'"}');
+				
+			}) 
+
+
+function getchangeData(data)
+{
+	var obj = data.c.statistic;
+	//console.log(data);
+	var a_line = echarts.init(document.getElementById('a_line'));
+	var t_line = echarts.init(document.getElementById('t_line'));
+					  
+	option_d_line_l = {
+    title: {
+        text: '',
+        subtext: ''
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: ['正确', '错误']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['SITA','AFTN']
+    },
+            color:['#A9EA9A', '#EF7D7C'],
+
+    series: [
+        {
+            name: '正确',
+            type: 'bar',
+            data: [obj.totalSitaSuccess,obj.totalAftnSuccess]
+        },
+        {
+            name: '错误',
+            type: 'bar',
+            data: [obj.totalSitaError,obj.totalAftnError]
+        }
+    ]
+};
+
+
+
+ 	option_d_line_r = {
+    title: {
+        text: '',
+        subtext: ''
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: ['正确', '错误']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['其他','天气']
+    },
+            color:['#A9EA9A', '#EF7D7C'],
+
+    series: [
+        {
+            name: '正确',
+            type: 'bar',
+            data: [obj.totalOther,obj.totalWeatherSuccess]
+        },
+        {
+            name: '错误',
+            type: 'bar',
+            data: [,obj.totalWeatherError]
+        }
+    ]
+};
+
+	a_line.setOption(option_d_line_l);
+	t_line.setOption(option_d_line_r);	
+	ishfmb_d = false;//加载上面部分图标，不再切换自己
+	getJson("statistics/message",getChartData,'{"time":"'+obj.time+'"}'); 
+
+}
+
+
+
+    </script>
+	</body>
+</html>
